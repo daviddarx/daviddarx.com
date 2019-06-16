@@ -1,0 +1,250 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+html {
+  position: relative;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+a {
+  text-decoration: underline;
+  color: #000000;
+  font-weight: bold;
+}
+a:hover {
+  color: #000;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-selection {
+  background: black;
+  color: #fff;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: black;
+  color: #fff;
+  text-shadow: none;
+}
+
+::selection {
+  background: black;
+  color: #fff;
+  text-shadow: none;
+}
+
+body {
+  background-color: white;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#stage {
+  width: 100%;
+  height: 100%;
+}
+#stage.loaded #stage__container {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+#stage.loaded a:hover img:nth-of-type(2) {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+#stage.loadedStart #stage__logo img:nth-of-type(1) {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+
+#stage__logo {
+  position: absolute;
+  display: inline-block;
+  z-index: 100;
+}
+#stage__logo img {
+  position: absolute;
+  display: block;
+  height: auto;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transform: rotate(-90deg) translateX(-99%) translateY(-10%);
+  -moz-transform: rotate(-90deg) translateX(-99%) translateY(-10%);
+  -ms-transform: rotate(-90deg) translateX(-99%) translateY(-10%);
+  -o-transform: rotate(-90deg) translateX(-99%) translateY(-10%);
+  transform: rotate(-90deg) translateX(-99%) translateY(-10%);
+  -webkit-transform-origin: 0px 0px;
+  -moz-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  -o-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+}
+#stage__logo img:nth-of-type(2) {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -moz-transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -o-transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#stage__container {
+  position: relative;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
+  -o-transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#pagination {
+  position: absolute;
+  bottom: 0px;
+}
+
+.pagination__item {
+  font-size: 0px;
+  display: inline-block;
+  margin-left: 8px;
+}
+.pagination__item:focus {
+  border: 0px;
+  outline: 0px;
+}
+.pagination__item.active {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+  opacity: 0.25;
+  pointer-events: none;
+}
+.pagination__item:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 50%;
+  background-color: #000000;
+  -webkit-transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  -moz-transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  -o-transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.pagination__item:hover:after {
+  height: 25%;
+}
+
+.animation-03 #audioButton a {
+  font-size: 0px;
+  position: absolute;
+  width: 41px;
+  height: 41px;
+  top: 16px;
+  right: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  -webkit-transition: border-color ease-out, background-position cubic-bezier(0.19, 1, 0.22, 1);
+  -webkit-transition-delay: 0.25s, 0.5s;
+  -moz-transition: border-color ease-out 0.25s, background-position cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+  -o-transition: border-color ease-out 0.25s, background-position cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+  transition: border-color ease-out 0.25s, background-position cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+  background-image: url("../../images/s3_sound/sound_icon.svg");
+  background-size: 82px 82px;
+  background-position: 0px 0px;
+  outline: 0px;
+}
+.animation-03 #audioButton a:hover {
+  border-color: white;
+}
+.animation-03 #audioButton a.playing {
+  background-position: -41px 0px;
+}
+.animation-03 #audioButton a.negative {
+  border-color: rgba(0, 0, 0, 0.25);
+  background-position: 0px -41px;
+}
+.animation-03 #audioButton a.negative:hover {
+  border-color: black;
+  background-position: -41px -41px;
+}
+.animation-03 #audioElement {
+  display: none;
+}
+.animation-03 #test {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  top: 90px;
+  left: 0px;
+  background-color: #ffffff;
+  z-index: 20000;
+  display: none;
+  outline: 0px;
+}

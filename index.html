@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+	
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<title>david darx – digital playground</title>
+
+		<link href="interface/css/reset.css" rel="stylesheet">
+		<link href="interface/css/style.css" rel="stylesheet">
+
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+
+	</head>
+
+	<body>
+		<div id="stage">
+			<h1 id="stage__logo">
+				<a href="#">
+					<img src="interface/images/logo_daviddarx_b.svg" alt="david darx – digital design">
+					<img src="interface/images/logo_daviddarx_f.svg" alt="">
+				</a>
+			</h1>
+			<div id="stage__container">
+			</div>
+		</div>
+
+		<div id="pagination">
+		</div>
+
+		<script src="interface/javascript/custom/general.js"></script>
+		
+		<script>
+			var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);
+			document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+		</script>
+	</body>
+
+</html>

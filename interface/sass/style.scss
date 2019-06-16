@@ -1,0 +1,229 @@
+@charset "UTF-8";
+
+@import "compass";
+@import "compass/reset";
+
+
+//////////////////////////////////////////////////////////////////
+//Definitions de variables
+//////////////////////////////////////////////////////////////////
+
+$loadedAnimationDuration:1s;
+$loadedAnimationEase:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+$logoHoverAnimationDuration:0.5s; 
+$logoHoverAnimationEase:cubic-bezier(0.165, 0.840, 0.440, 1.000);
+
+//////////////////////////////////////////////////////////////////
+//Fonts
+//////////////////////////////////////////////////////////////////
+
+
+ 
+
+
+
+//////////////////////////////////////////////////////////////////
+//General 
+//////////////////////////////////////////////////////////////////
+html{
+	position:relative;
+}
+html, body{
+	width:100%;
+	height:100%;
+	min-width:100%;
+	min-height:100%;
+	margin:0px;
+	padding:0px;
+	overflow:hidden;
+}
+
+canvas{
+	display:block;
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+//Styles
+//////////////////////////////////////////////////////////////////
+
+a{
+	text-decoration:underline;
+	color:#000000;
+	font-weight:bold; 
+
+	&:hover{
+		color:#000;
+	}
+}
+
+*{
+	-webkit-tap-highlight-color: rgba(0,0,0, 0.1);
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+//Structure
+//////////////////////////////////////////////////////////////////
+
+::-webkit-selection { background: black; color: #fff; text-shadow: none; }
+::-moz-selection { background: black; color: #fff; text-shadow: none; }
+::selection { background: black; color: #fff; text-shadow: none; }
+
+
+body{
+	background-color:white;
+	font-family:Helvetica, Arial, sans-serif;
+}
+
+#stage{
+	width:100%;
+	height:100%;
+
+	&.loaded{
+		#stage__container{
+			@include opacity(1);
+		}
+		a:hover{
+			img:nth-of-type(2){
+				@include opacity(1);
+			}
+		}
+	}
+	&.loadedStart{
+		#stage__logo img:nth-of-type(1){
+			@include opacity(1);
+		}
+	}
+}
+
+#stage__logo{
+	position:absolute;
+	display:inline-block;
+	z-index:100;
+
+	img{
+		position:absolute;
+		display:block;
+		height:auto;
+		@include opacity(0);
+		//@include transition(opacity $loadedAnimationDuration $loadedAnimationEase);
+		@include transform(rotate(-90deg) translateX(-99%) translateY(-10%));
+		@include transform-origin(0px, 0px);
+	}
+
+	img:nth-of-type(2){
+		@include opacity(0);
+		@include transition(opacity $logoHoverAnimationDuration $logoHoverAnimationEase);
+	}
+}
+
+#stage__container{
+	position:relative;
+	background-color:black;
+	@include opacity(0);
+	@include transition(opacity $loadedAnimationDuration $loadedAnimationEase);
+}
+
+#pagination{
+	position:absolute;
+	bottom:0px;
+}
+.pagination__item{
+	font-size:0px;
+	display:inline-block;
+	margin-left:8px;
+
+	&:focus{
+		border:0px;
+		outline:0px;
+	}
+
+	&.active{
+		@include opacity(0.25);
+		pointer-events:none;
+
+		//&:after{ height:12.5%; }
+	}
+
+	&:after{
+		content:"";
+		display:block;
+		width:100%;
+		height:1px;
+		margin-top:50%;
+		background-color:#000000;
+		@include transition(height 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000));
+	}
+
+	&:hover{
+		&:after{
+			height:25%; //12.5%
+		}
+	}
+}
+
+.animation-03{
+	#audioButton{
+		a{
+			font-size:0px;
+			position:absolute;
+			width:41px;
+			height:41px;
+			top:16px;
+			right:16px;
+			border:1px solid rgba(255, 255, 255, 0.25);
+			@include transition(border-color ease-out 0.25s, background-position cubic-bezier(0.190, 1.000, 0.220, 1.000) 0.5s);
+			background-image:url("../../images/s3_sound/sound_icon.svg");
+			background-size:82px 82px;
+			background-position:0px 0px;
+			outline:0px;
+
+			&:hover{
+				border-color:rgba(255, 255, 255, 1);
+			}
+
+			&.playing{
+				background-position:-41px 0px;
+			}
+			&.negative{
+				border-color:rgba(0, 0, 0, 0.25);
+				background-position:0px -41px;
+
+				&:hover{
+					border-color:rgba(0, 0, 0, 1);
+					background-position:-41px -41px;
+				}
+				
+			}
+		}
+	}
+	#audioElement{
+		display:none;
+	}
+	#test{
+		position:absolute;
+		width:100%;
+		min-height:100%;
+		top:90px;
+		left:0px;
+		background-color:#ffffff;
+		z-index:20000;
+		display:none;
+		outline:0px;
+	}
+}
+
+
+
+
+//////////////////////////////////////////////////////////////////
+//Media queries
+//////////////////////////////////////////////////////////////////
