@@ -1,0 +1,22 @@
+{
+  "name": "daviddarx.com",
+  "version": "1.0.0",
+  "description": "Site daviddarx.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviddarx/daviddarx.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daviddarx/daviddarx.com/issues"
+  },
+  "homepage": "https://github.com/daviddarx/daviddarx.com#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
+}
