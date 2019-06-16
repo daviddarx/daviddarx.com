@@ -1,5 +1,7 @@
-(function(){
+import { TweenMax } from "gsap";
+import * as PIXI from 'pixi.js';
 
+export default (async function () { 
 	var stage, stageContainer, app, imagesContainer, imagesColorMatrix, ticker,
 	i, settings, imagesRep, imagesNegativeRep, dmapsRep, currentImageID, currentDmapID, isImageAnimated, mouseDistToCenterX, mouseDistToCenterY, imageTargetPosition, linesOverlay, mouseMoveLineOverlay, imageFilters, filterTimeOut, changePictureTimeout, mouseMoveTimeout, mousePos, mousePosInStage, devicePixelRatioCustom,  mouseMoveLinePointsArray, isStageNegativ, currentImage, 
 	hasClass, addClass, removeClass, setScene, firstImagesLoadCompleteListener, tickerListener, resizeListener, mouseMoveListener, changePicture, changeDMap, drawRandomLines, filterTimeOutListener, filterTimeoutTweenProgressListener, drawMouseMoveLine, mouseMoveTimeoutListener, updateMouseMoveLinePoints, animateMouseMoveLineWidth, pictureChangeAnimationMiddleListener, pictureChangeAnimationCompleteListener, changeNegativeMode;
@@ -10,9 +12,9 @@
 		imagesBW:2880, 
 		imagesBH:1600, 
 		filterSize:2048, 
-		imagesURL:Array('images/s1_dm_backgrounds/01.jpg', 'images/s1_dm_backgrounds/02.jpg', 'images/s1_dm_backgrounds/03.jpg', 'images/s1_dm_backgrounds/04.jpg', 'images/s1_dm_backgrounds/05.jpg', 'images/s1_dm_backgrounds/06.jpg'), 
-		imagesNegativeURL:Array('images/s1_dm_backgrounds/01_neg.jpg', 'images/s1_dm_backgrounds/02_neg.jpg', 'images/s1_dm_backgrounds/03_neg.jpg', 'images/s1_dm_backgrounds/04_neg.jpg', 'images/s1_dm_backgrounds/05_neg.jpg', 'images/s1_dm_backgrounds/06_neg.jpg'),
-		dmapsURL:Array('images/s1_dm_filters/01.jpg', 'images/s1_dm_filters/02.jpg', 'images/s1_dm_filters/03.jpg', 'images/s1_dm_filters/04.jpg', 'images/s1_dm_filters/05.jpg', 'images/s1_dm_filters/06.jpg'),
+		imagesURL:Array('s1_dm_backgrounds/01.jpg', 's1_dm_backgrounds/02.jpg', 's1_dm_backgrounds/03.jpg', 's1_dm_backgrounds/04.jpg', 's1_dm_backgrounds/05.jpg', 's1_dm_backgrounds/06.jpg'), 
+		imagesNegativeURL:Array('s1_dm_backgrounds/01_neg.jpg', 's1_dm_backgrounds/02_neg.jpg', 's1_dm_backgrounds/03_neg.jpg', 's1_dm_backgrounds/04_neg.jpg', 's1_dm_backgrounds/05_neg.jpg', 's1_dm_backgrounds/06_neg.jpg'),
+		dmapsURL:Array('s1_dm_filters/01.jpg', 's1_dm_filters/02.jpg', 's1_dm_filters/03.jpg', 's1_dm_filters/04.jpg', 's1_dm_filters/05.jpg', 's1_dm_filters/06.jpg'),
 		dmapsParamaters:Array(
 			{
 				spriteInitScale:0.5, 
@@ -516,5 +518,3 @@
 	window.addEventListener('resize', resizeListener);
 	resizeListener();
 })();
-
-

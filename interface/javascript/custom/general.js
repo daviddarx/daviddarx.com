@@ -1,5 +1,5 @@
+ import "babel-polyfill";
 
-(function(){
 
 	var hasClass, addClass, removeClass, loadJS ,paginationClickListener, logoClickListener, stageJSLoadCompleteListener, stageResizer,  
 	pagination, paginationItems, stage, stageContainer, logo, logoImg, logoLink, 
@@ -8,22 +8,15 @@
 
 	scriptsRep = Array(
 		Array(
-			"interface/javascript/libraries/TweenMax.min.js",
-			"interface/javascript/libraries/pixi.min.js", 
-			"interface/javascript/custom/bw_stage_01.js",
+			"./bw_stage_01.js",
 			"animation-01"
 		), 
 		Array(
-			"interface/javascript/libraries/TweenMax.min.js",
-			"interface/javascript/libraries/pixi.min.js", 
-			"interface/javascript/custom/bw_stage_02.js",
+			"./bw_stage_02.js",
 			"animation-02"
 		), 
 		Array(
-			"interface/javascript/libraries/TweenMax.min.js",
-			"interface/javascript/libraries/three.min.js",
-			"interface/javascript/libraries/simplex-noise.min.js",
-			"interface/javascript/custom/bw_stage_03.js",
+			"./bw_stage_03.js",
 			"animation-03"
 		)
 	);
@@ -95,19 +88,19 @@
 		else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
 	};
 
-	loadJS = function(url, implementationCode, location){
+	/*loadJS = function(url, implementationCode, location){
 		scriptTag = document.createElement('script');
 		scriptTag.src = url;
 		scriptTag.onload = implementationCode;
 	    location.appendChild(scriptTag);
-	};
+	};*/
 
-	stageJSLoadCompleteListener = function(){
+	/*stageJSLoadCompleteListener = function(){
 		if(loadedScriptNumber<scriptsRep[window.currentStageID-1].length-1){
 			loadJS(scriptsRep[window.currentStageID-1][loadedScriptNumber], stageJSLoadCompleteListener, document.body);
 			loadedScriptNumber++;
 		}
-	};
+	};*/
 
 	stageResizer = function(){
 		window.windowSize.width = (window.innerWidth || screen.width);
@@ -215,10 +208,31 @@
 	if(scriptsRep.length>1){
 		paginationItems[window.currentStageID-1].classList.add("active");
 	}
-	loadJS(scriptsRep[window.currentStageID-1][0], stageJSLoadCompleteListener, document.body);
-	document.body.classList.add(scriptsRep[window.currentStageID-1][scriptsRep[window.currentStageID-1].length-1]);
+	
+	//loadJS(scriptsRep[window.currentStageID-1][0], stageJSLoadCompleteListener, document.body);
+	async function loadScript(){
+		console.log("./bw_stage_01.js");
+		console.log(window.currentStageID);
+		console.log(typeof window.currentStageID);
+
+		if(window.currentStageID==1){
+			const stageScript = import("./bw_stage_01.js").then((stageScript) => {});
+		}else if(window.currentStageID==2){
+			const stageScript = import("./bw_stage_02.js").then((stageScript) => {});
+		}else if(window.currentStageID==3){
+			const stageScript = import("./bw_stage_03.js").then((stageScript) => {});
+		}
+
+		document.body.classList.add(scriptsRep[window.currentStageID-1][1]);
+	};
+	loadScript();
+	//import init from "./bw_stage_01.js";//scriptsRep[window.currentStageID-1][0]);
+	//init();
+
+	document.body.classList.add(scriptsRep[window.currentStageID-1][1]);
+	
+	
 	loadedScriptNumber=1;
 
-})();
 
 

@@ -1,6 +1,7 @@
+import { TweenMax } from "gsap";
+import * as PIXI from 'pixi.js';
 
-(function(){
-
+export default (async function () { 
 	var stage, stageContainer, app, ticker, linesGraphics, linesTexture, linesTextureSprite, frameGraphics, clickGraphics, 
 	i, settings, mousePos, mousePosInStage, dmapsRep, currentDmapID, trianglesRep, mouseDistToCenterX, mouseDistToCenterY, stagePerimeter, currentStyle, currentTriangle, higherTrianglePoint, lowerTrianglePoint, mouseMoveTimeout, filterDMTimeout, changeStyleInterval, isClickGraphicsDisplayed, isMouseDown, isMouseDownDrawing, devicePixelRatioCustom, 
 	hasClass, addClass, removeClass, setScene, firstImagesLoadCompleteListener, tickerListener, resizeListener, mouseDownListener, mouseUpListener, mouseMoveListener, drawLines, getPointPosition, updateTriangle, pointLifeUpdateListener, animateTriangles, changeStyle, mouseMoveTimeoutListener, filterDMTimeoutListener, filterDMTimeoutListenerUpdateListener, filterDMTimeoutListenerCompleteListener, drawFrame, drawClickGraphics, launchClickGraphics, launchClickGraphicsOnMouseDown, launchClickGraphicsAnimationOut, clickGraphicsAnimationCompleteListener;
@@ -8,7 +9,7 @@
 	devicePixelRatioCustom = (window.devicePixelRatio!=1 && window.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
 
 	settings={
-		dmapsURL:Array('images/s2_dm_filter/dm_grain.jpg'),
+		dmapsURL:Array('s2_dm_filter/dm_grain.jpg'),
 		dmapsParamaters:Array(
 			{
 				spriteInitScale: (devicePixelRatioCustom==1) ? 0.6 : 0.6,
@@ -479,8 +480,7 @@
 	setScene();
 
 	window.addEventListener("mousemove", mouseMoveListener);
-
-	
 })();
 
+	
 

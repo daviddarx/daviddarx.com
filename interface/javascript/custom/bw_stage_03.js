@@ -55,14 +55,18 @@
 	
  */
 
- 
+ import { TweenMax } from "gsap";
+ import * as THREE from 'three'; 
+ import SimplexNoise from "simplex-noise";
 
-(function(){
+ console.log(SimplexNoise);
+
+export default (async function () { 
 
 	var stage, stageContainer, audioButton, audioElement, 
 	settings, settingsThree, i, il, devicePixelRatioCustom, 
 	settingsThree, ThreeJS, threeJSObject, CameraControler, cameraControlerObject, scene, camera, renderer, createBasicShapes,  
-	mousePos, mousePosInStage, mouseDistToCenterX, mouseDistToCenterY, currentLetterPos, fontID, isAudioPlaying, currentAudioWordID, audioElementTimeUpdateInterval, 
+	mousePos, mousePosInStage, mouseDistToCenterX, mouseDistToCenterY, currentLetterPos, fontID, isAudioPlaying, currentAudioWordID, audioElementTimeUpdateInterval, currentLetterPosTargetForCamera, resizeListener, renderStage, test, 
 	hasClass, addClass, removeClass, setScene, mouseDownListener, mouseUpListener, keyPressListener, audioButtonMouseDownListener, audioElementTimeUpdateListener, audioElementEndListener;
 
 	devicePixelRatioCustom = (window.devicePixelRatio!=1 && window.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
@@ -70,27 +74,27 @@
 	settings={
 		fontsURLs:[
 			{
-				font:"images/s3_fonts/google/Playfair_Display_Bold.json",
+				font:"s3_fonts/google/Playfair_Display_Bold.json",
 				segments:4
 			},/* 
 			{
-				font:"images/s3_fonts/google/Noto_Serif_Regular.json",
+				font:"s3_fonts/google/Noto_Serif_Regular.json",
 				segments:2
 			},
 			{
-				font:"images/s3_fonts/google/Aclonica_Regular.json",
+				font:"s3_fonts/google/Aclonica_Regular.json",
 				segments:2
 			},
 			{
-				font:"images/s3_fonts/Regular-Web.json",
+				font:"s3_fonts/Regular-Web.json",
 				segments:2
 			}, 
 			{
-				font:"images/s3_fonts/BluuNext-Bold.json",
+				font:"s3_fonts/BluuNext-Bold.json",
 				segments:5
 			}*/
 		],
-		envMapImagesPath:"images/s3_cube_texture/_10/", 
+		envMapImagesPath:"s3_cube_texture/_10/", 
 		envMapImagesNames:[ 'px.png', 'py.png', 'pz.png', 'nx.png', 'py.png', 'nz.png' ],
 		//envMapImagesNames:[ 'px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png' ], 
 		//envMapImagesNames:[ 'px.png', 'py.png', 'pz.png', 'nx.png', 'ny.png', 'nz.png' ],  
@@ -900,7 +904,7 @@
 
 
 	setScene = function(){
-		stageContainer.innerHTML+="<audio id='audioElement' src='images/s3_sound/baudelaire_enivrez-vous_serge_reggiani_trimmed.m4a' controls></audio>";
+		stageContainer.innerHTML+="<audio id='audioElement' src='s3_sound/baudelaire_enivrez-vous_serge_reggiani_trimmed.m4a' controls></audio>";
 		audioElement=document.getElementById("audioElement");
 		audioElement.addEventListener("ended", audioElementEndListener);
 
@@ -1074,6 +1078,7 @@
 	window.addEventListener("keypress", keyPressListener);
 
 })();
+
 
 
 
