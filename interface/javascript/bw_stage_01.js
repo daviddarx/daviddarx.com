@@ -2,6 +2,7 @@ import { TweenMax } from "gsap";
 import * as PIXI from 'pixi.js';
 
 export default (async function () { 
+	
 	var stage, stageContainer, app, imagesContainer, imagesColorMatrix, ticker,
 	i, settings, imagesRep, imagesNegativeRep, dmapsRep, currentImageID, currentDmapID, isImageAnimated, mouseDistToCenterX, mouseDistToCenterY, imageTargetPosition, linesOverlay, mouseMoveLineOverlay, imageFilters, filterTimeOut, changePictureTimeout, mouseMoveTimeout, mousePos, mousePosInStage, devicePixelRatioCustom,  mouseMoveLinePointsArray, isStageNegativ, currentImage, 
 	hasClass, addClass, removeClass, setScene, firstImagesLoadCompleteListener, tickerListener, resizeListener, mouseMoveListener, changePicture, changeDMap, drawRandomLines, filterTimeOutListener, filterTimeoutTweenProgressListener, drawMouseMoveLine, mouseMoveTimeoutListener, updateMouseMoveLinePoints, animateMouseMoveLineWidth, pictureChangeAnimationMiddleListener, pictureChangeAnimationCompleteListener, changeNegativeMode;

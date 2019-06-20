@@ -1,7 +1,10 @@
+
 import { TweenMax } from "gsap";
 import * as PIXI from 'pixi.js';
 
 export default (async function () { 
+	
+
 	var stage, stageContainer, app, ticker, linesGraphics, linesTexture, linesTextureSprite, frameGraphics, clickGraphics, 
 	i, settings, mousePos, mousePosInStage, dmapsRep, currentDmapID, trianglesRep, mouseDistToCenterX, mouseDistToCenterY, stagePerimeter, currentStyle, currentTriangle, higherTrianglePoint, lowerTrianglePoint, mouseMoveTimeout, filterDMTimeout, changeStyleInterval, isClickGraphicsDisplayed, isMouseDown, isMouseDownDrawing, devicePixelRatioCustom, 
 	hasClass, addClass, removeClass, setScene, firstImagesLoadCompleteListener, tickerListener, resizeListener, mouseDownListener, mouseUpListener, mouseMoveListener, drawLines, getPointPosition, updateTriangle, pointLifeUpdateListener, animateTriangles, changeStyle, mouseMoveTimeoutListener, filterDMTimeoutListener, filterDMTimeoutListenerUpdateListener, filterDMTimeoutListenerCompleteListener, drawFrame, drawClickGraphics, launchClickGraphics, launchClickGraphicsOnMouseDown, launchClickGraphicsAnimationOut, clickGraphicsAnimationCompleteListener;

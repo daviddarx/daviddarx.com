@@ -3,21 +3,45 @@
 
 	- utiliser le tutos mouse move avec simple noise pour l'anime 01? 
 		- https://css-tricks.com/simulating-mouse-movement/
+
 	- anime 01: 
 		- update pixisjs v5 https://medium.com/goodboy-digital/pixijs-v5-lands-5e112d84e510
 		- check perfs, si ca joue
 		- change image de l'horloge trop blanche au milieu
 		- diminuer le temps de changement entre deux images 
 		
+	- mettre le tout sur netlify? 
+		- changer DNS -> rediriger daviddar.com (a-record)
+		- ensuite faire branch developpement. 
+		- comme ca aussi https! 
 
-	
-		
 	- faire impression 2 ou 3 plexis glass, avec differentes fonts et wireframes. que noir? 
 
 
+	- check probleme des avertissement des images caches id. 
+
+
+	- mettre dist sur daviddarx.com pour voir si cela fonctionne. 
+
+	- js import: https://v8.dev/features/dynamic-import
+
+	- retirer threee js pour voir difference de poids
+	- tester truc de david pour import threejs separer: 
+		- faire un fichier js avec 
+				import * as THREE from 'three';  dedans
+		- loader ce fichier en async depuis ici, comme on fait dans general.js
 
 
 
+	- cleaner le site: let et const au lieu de vars, pas les déclarer en haut
+
+
+
+
+
+	- debug logo clique fonctionne plus! surement a cause du innerhtml? 
+
+	
 	- fixer css audiobutton negative et playing
 	- check que bouton son redevienne bonne icon apres fin de la chanson et relancement automatique
 
@@ -32,6 +56,8 @@
 		- fine tuning durée text auto 
 		- augementer le textAutoLaunchTimeoutFirstCallDuration
 
+
+	
 
 
 
@@ -48,6 +74,13 @@
 	
 		- retina pour mobile? 
 
+		- inspect/audit -> fait un audit. 
+
+		- optimisation: 
+			- The first best optimisation to do is to set every object with the property matrixAutoUpdate to false and manually call the updateMatrix() method when needed. The second is to merge and draw all the elements which are using the same material with THREE.BuffergeometryUtils. All the scenes on this portfolio are arounds 13 draws 120 calls / render.
+				- Check le MatrixAutoUpdate des Objets! 
+				- Check le truc avec Buffer geomatries
+
 		- retrait des images en trop à la fin. 
 		- jshint, tous les js de nouveau
 		- tester sur ie pour voir sans jquery? 
@@ -55,17 +88,15 @@
 	
  */
 
- import { TweenMax } from "gsap";
- import * as THREE from 'three'; 
- import SimplexNoise from "simplex-noise";
-
- console.log(SimplexNoise);
+import { TweenMax } from "gsap";
+import * as THREE from 'three'; 
+import SimplexNoise from "simplex-noise";
 
 export default (async function () { 
 
 	var stage, stageContainer, audioButton, audioElement, 
 	settings, settingsThree, i, il, devicePixelRatioCustom, 
-	settingsThree, ThreeJS, threeJSObject, CameraControler, cameraControlerObject, scene, camera, renderer, createBasicShapes,  
+	settingsThree, ThreeJS, threeJSObject, CameraControler, cameraControlerObject, scene, camera, renderer,  
 	mousePos, mousePosInStage, mouseDistToCenterX, mouseDistToCenterY, currentLetterPos, fontID, isAudioPlaying, currentAudioWordID, audioElementTimeUpdateInterval, currentLetterPosTargetForCamera, resizeListener, renderStage, test, 
 	hasClass, addClass, removeClass, setScene, mouseDownListener, mouseUpListener, keyPressListener, audioButtonMouseDownListener, audioElementTimeUpdateListener, audioElementEndListener;
 
@@ -943,106 +974,12 @@ export default (async function () {
 
 		cameraControlerObject = new CameraControler();
 		cameraControlerObject.init();
-		//createBasicShapes();
 
 		renderStage();
 
 		addClass(stage, "loaded");
 	};
 
-	
-	createBasicShapes = function(){
-		var startPositionX = -500;
-		var startPositionY = 300;
-
-		/* display only basic shapes
-			for(i=0; i<scene.children.length; i++){
-				scene.children[i].visible=false;
-			}
-		*/
-
-		var planeGeom = new THREE.PlaneGeometry( 100, 100, 5, 5 );
-		var plane = new THREE.Mesh( planeGeom, threeJSObject.materials.commonMaterial );
-			plane.position.x=startPositionX+0;
-			plane.position.y=startPositionY+0;
-		scene.add( plane );
-
-		var circleGeom = new THREE.CircleGeometry( 50, 60); 
-		var circle = new THREE.Mesh( circleGeom, threeJSObject.materials.commonMaterial );
-			circle.position.x=startPositionX+200;
-			circle.position.y=startPositionY;
-		scene.add( circle );
-
-		var boxGeom = new THREE.BoxGeometry( 100, 100, 100, 1, 1, 1 );
-		var box = new THREE.Mesh( boxGeom, threeJSObject.materials.commonMaterial );
-			box.position.x=startPositionX+400;
-			box.position.y=startPositionY+0;	
-			scene.add( box );
-
-		var coneGeom = new THREE.ConeGeometry(50, 100, 10, 1);
-		var cone = new THREE.Mesh( coneGeom, threeJSObject.materials.commonMaterial );
-			cone.position.x=startPositionX+600;
-			cone.position.y=startPositionY+0;
-		scene.add( cone );
-
-		var cylinderGeom = new THREE.CylinderGeometry(25, 50, 100, 10, 1);
-		var cylinder = new THREE.Mesh( cylinderGeom, threeJSObject.materials.commonMaterial );
-			cylinder.position.x=startPositionX+800;
-			cylinder.position.y=startPositionY+0;
-		scene.add( cylinder );
-
-		var dodecahedronGeom = new THREE.DodecahedronGeometry(50, 0);
-		var dodecahedron = new THREE.Mesh( dodecahedronGeom, threeJSObject.materials.commonMaterial );
-			dodecahedron.position.x=startPositionX+1000;
-			dodecahedron.position.y=startPositionY+0;
-		scene.add( dodecahedron );
-
-		var icosahedronGeom = new THREE.IcosahedronGeometry(50, 0);
-		var icosahedron = new THREE.Mesh( icosahedronGeom, threeJSObject.materials.commonMaterial );
-			icosahedron.position.x=startPositionX+0;
-			icosahedron.position.y=startPositionY-200;
-		scene.add( icosahedron );
-
-		var points = [];
-		for ( var i = 0; i < 10; i ++ ) {
-			points.push( new THREE.Vector2( Math.sin( i * 0.2 ) * 50 + 5, ( i - 5 ) * 10 ) );
-		}
-		var latheGeom = new THREE.LatheGeometry(points);
-		var lathe = new THREE.Mesh( latheGeom, threeJSObject.materials.commonMaterial );
-			lathe.position.x=startPositionX+200;
-			lathe.position.y=startPositionY-200;
-		scene.add( lathe );
-
-		var octahedronGeom = new THREE.OctahedronGeometry(50, 0);
-		var octahedron = new THREE.Mesh( octahedronGeom, threeJSObject.materials.commonMaterial );
-			octahedron.position.x=startPositionX+400;
-			octahedron.position.y=startPositionY-200;
-		scene.add( octahedron );
-
-		var ringGeom = new THREE.RingGeometry(25, 50, 10);
-		var ring = new THREE.Mesh( ringGeom, threeJSObject.materials.commonMaterial );
-			ring.position.x=startPositionX+600;
-			ring.position.y=startPositionY-200;
-		scene.add( ring );
-
-		var sphereGeom = new THREE.SphereGeometry(50, 10, 10);
-		var sphere = new THREE.Mesh( sphereGeom, threeJSObject.materials.commonMaterial );
-			sphere.position.x=startPositionX+800;
-			sphere.position.y=startPositionY-200;
-		scene.add( sphere );
-
-		var tetrahedronGeom = new THREE.TetrahedronGeometry(50, 0);
-		var tetrahedron = new THREE.Mesh( tetrahedronGeom, threeJSObject.materials.commonMaterial );
-			tetrahedron.position.x=startPositionX+0;
-			tetrahedron.position.y=startPositionY-400;
-		scene.add( tetrahedron );
-
-		var torusGeom = new THREE.TorusGeometry( 50, 10, 5, 25 );
-		var torus = new THREE.Mesh( torusGeom, threeJSObject.materials.commonMaterial );
-			torus.position.x=startPositionX+200;
-			torus.position.y=startPositionY-400;
-		scene.add( torus );
-	}
 
 	Math.radians = function(degrees) {
 		return degrees * Math.PI / 180;

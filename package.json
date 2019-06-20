@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
@@ -29,9 +30,10 @@
     "parcel-plugin-static-files-copy": "^2.1.2",
     "pixi.js": "^4.5.1",
     "simplex-noise": "^2.4.0",
+    "stats.js": "^0.17.0",
     "three": "^0.105.2"
   },
   "staticFiles": {
-    "staticPath":"images" 
+    "staticPath": "images"
   }
 }

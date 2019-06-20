@@ -1,27 +1,12 @@
  import "babel-polyfill";
+ import Stats from 'stats.js'
+
+	let i;
 
 
-	var hasClass, addClass, removeClass, loadJS ,paginationClickListener, logoClickListener, stageJSLoadCompleteListener, stageResizer,  
-	pagination, paginationItems, stage, stageContainer, logo, logoImg, logoLink, 
-	i, scriptTag, breakPointsDefinitions, hashArray, loadAnimationDuration, scriptsRep, loadedScriptNumber;
-			
+	const animationsIDRep = Array("animation-01", "animation-02", "animation-03");
 
-	scriptsRep = Array(
-		Array(
-			"./bw_stage_01.js",
-			"animation-01"
-		), 
-		Array(
-			"./bw_stage_02.js",
-			"animation-02"
-		), 
-		Array(
-			"./bw_stage_03.js",
-			"animation-03"
-		)
-	);
-
-	breakPointsDefinitions = Array(
+	const breakPointsDefinitions = Array(
 		{
 			width:1440, 
 			stageBorderLeft:0.05, 
@@ -76,33 +61,19 @@
 
 
 
-	hasClass = function(el, className) {
+	const hasClass = function(el, className) {
 		return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
 	};
-	addClass = function(el, className) {
+	const addClass = function(el, className) {
 		if (el.classList) el.classList.add(className);
 		else if (!hasClass(el, className)) el.className += ' ' + className;
 	};
-	removeClass = function(el, className) {
+	const removeClass = function(el, className) {
 		if (el.classList) el.classList.remove(className);
 		else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
 	};
 
-	/*loadJS = function(url, implementationCode, location){
-		scriptTag = document.createElement('script');
-		scriptTag.src = url;
-		scriptTag.onload = implementationCode;
-	    location.appendChild(scriptTag);
-	};*/
-
-	/*stageJSLoadCompleteListener = function(){
-		if(loadedScriptNumber<scriptsRep[window.currentStageID-1].length-1){
-			loadJS(scriptsRep[window.currentStageID-1][loadedScriptNumber], stageJSLoadCompleteListener, document.body);
-			loadedScriptNumber++;
-		}
-	};*/
-
-	stageResizer = function(){
+	const stageResizer = function(){
 		window.windowSize.width = (window.innerWidth || screen.width);
 		window.windowSize.height = (window.innerHeight || screen.height);
 
@@ -161,7 +132,7 @@
 		};
 	};
 
-	paginationClickListener = function(){
+	const paginationClickListener = function(){
 		window.location.hash=this.getAttribute("href").split("#")[1];
 		removeClass(stage,"loaded");
 		setTimeout(function(){
@@ -170,8 +141,8 @@
 		return false;		
 	};	
 
-	logoClickListener = function(){
-		window.location.hash=(window.currentStageID<scriptsRep.length)?window.currentStageID+1:1;
+	const logoClickListener = function(){
+		window.location.hash=(window.currentStageID<animationsIDRep.length)?window.currentStageID+1:1;
 		removeClass(stage, "loaded");
 		setTimeout(function(){
 			location.reload();
@@ -179,42 +150,37 @@
 		return false;
 	};
 
-	hashArray = window.location.hash.split("#");
-	window.currentStageID = (hashArray.length>1) ? parseInt(hashArray[1]) : Math.floor(Math.random()*scriptsRep.length+1);
+	const hashArray = window.location.hash.split("#");
+	window.currentStageID = (hashArray.length>1) ? parseInt(hashArray[1]) : Math.floor(Math.random()*animationsIDRep.length+1);
 
-	logo=document.getElementById("stage__logo");
-	logoImg=logo.getElementsByTagName("img");
-	stage=document.getElementById("stage");
-	stageContainer=document.getElementById("stage__container");
-	pagination=document.getElementById("pagination");
-	if(scriptsRep.length>1){
-		for(i=0; i<scriptsRep.length; i++){
+	const logo=document.getElementById("stage__logo");
+	const logoImg=logo.getElementsByTagName("img");
+	const stage=document.getElementById("stage");
+	const stageContainer=document.getElementById("stage__container");
+	const pagination=document.getElementById("pagination");
+	if(animationsIDRep.length>1){
+		for(i=0; i<animationsIDRep.length; i++){
 			pagination.innerHTML+='<a href="#'+(i+1)+'" class="pagination__item">'+(i+1)+'</a>';
 		}
 	}
-	paginationItems=document.getElementsByClassName("pagination__item");
+	const paginationItems=document.getElementsByClassName("pagination__item");
 	for(i=0; i<paginationItems.length; i++){
 		paginationItems[i].addEventListener("click", paginationClickListener);
 		paginationItems[i].addEventListener("touchstart", paginationClickListener);
 	};
-	logoLink=logo.getElementsByTagName("a");		
-	loadAnimationDuration=window.getComputedStyle ? getComputedStyle(stageContainer, null) : stageContainer.currentStyle;
+	const logoLink=logo.getElementsByTagName("a");		
+	let loadAnimationDuration=window.getComputedStyle ? getComputedStyle(stageContainer, null) : stageContainer.currentStyle;
 	loadAnimationDuration=parseInt(loadAnimationDuration.transitionDuration.split("s")[0])*1000;
 
 	window.addEventListener('resize', stageResizer);
 	stageResizer();
 
 	addClass(stage, "loadedStart");
-	if(scriptsRep.length>1){
+	
+	if(animationsIDRep.length>1){
 		paginationItems[window.currentStageID-1].classList.add("active");
 	}
-	
-	//loadJS(scriptsRep[window.currentStageID-1][0], stageJSLoadCompleteListener, document.body);
 	async function loadScript(){
-		console.log("./bw_stage_01.js");
-		console.log(window.currentStageID);
-		console.log(typeof window.currentStageID);
-
 		if(window.currentStageID==1){
 			const stageScript = import("./bw_stage_01.js").then((stageScript) => {});
 		}else if(window.currentStageID==2){
@@ -222,17 +188,18 @@
 		}else if(window.currentStageID==3){
 			const stageScript = import("./bw_stage_03.js").then((stageScript) => {});
 		}
-
-		document.body.classList.add(scriptsRep[window.currentStageID-1][1]);
 	};
 	loadScript();
-	//import init from "./bw_stage_01.js";//scriptsRep[window.currentStageID-1][0]);
-	//init();
 
-	document.body.classList.add(scriptsRep[window.currentStageID-1][1]);
-	
-	
-	loadedScriptNumber=1;
+	document.body.classList.add(animationsIDRep[window.currentStageID-1]);
+
+	const stats=new Stats();
+	document.body.appendChild(stats.dom);
+	requestAnimationFrame(function loop(){
+		stats.update();
+		requestAnimationFrame(loop)
+		}
+	);
 
 
 
