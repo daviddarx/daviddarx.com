@@ -6,9 +6,6 @@ import Global from './general.js';
 const global = new Global();
 global.init();
 
-console.log(global.stageSettings);
-
-
 /*
 var stage, stageContainer, app, ticker, linesGraphics, linesTexture, linesTextureSprite, frameGraphics, clickGraphics, 
 i, settings, mousePos, mousePosInStage, dmapsRep, currentDmapID, trianglesRep, mouseDistToCenterX, mouseDistToCenterY, stagePerimeter, currentStyle, currentTriangle, higherTrianglePoint, lowerTrianglePoint, mouseMoveTimeout, filterDMTimeout, changeStyleInterval, isClickGraphicsDisplayed, isMouseDown, isMouseDownDrawing, devicePixelRatioCustom, 

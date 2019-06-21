@@ -4,9 +4,9 @@
   "description": "Site daviddarx.com",
   "main": "index.js",
   "scripts": {
-    "start": "parcel stage-02.html",
+    "start": "parcel stage-01.html stage-02.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build stage-02.html"
+    "build": "parcel build stage01.html stage-02.html"
   },
   "repository": {
     "type": "git",

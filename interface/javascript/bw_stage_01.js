@@ -5,7 +5,6 @@ import Global from './general.js';
 const global = new Global();
 global.init();
 
-
 let i; 
 
 const devicePixelRatioCustom = (window.devicePixelRatio!=1 && global.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
