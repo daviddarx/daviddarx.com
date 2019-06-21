@@ -14,8 +14,28 @@
 - changer DNS -> rediriger daviddar.com (a-record)
 - ensuite faire branch developpement. 
 - comme ca aussi https! 
+- et faire sous-domaine pour ftp. 
 
 - faire impression 2 ou 3 plexis glass, avec differentes fonts et wireframes. que noir? 
+
+
+- noter dans notes!!
+- pomme shit p (commande de palette)
+- reinedent: 
+
+- attention check dans quel branche je suis! 
+- corriger toutes les erreurs de lint 
+- faire fonctions en arrow pour click et interval, partout, sans body! 
+
+
+- remplacer les Array par [ ]
+- finaliser  general.js, check ce que je faisais avec les ashs, cela doit etre fait autrement maintenant. 
+- finaliser bw_stage_01.js
+- redirecte sur stage01.html si rien n'est spécifier -> faire un index.html qui redirige vers stage01.html? 
+
+
+
+
 
 
 - favicon pas mettre à la racine. 
@@ -41,22 +61,18 @@ _ remplacer touch start par pointer events.
 
 - js import: https://v8.dev/features/dynamic-import
 
-- noter dans notes!!
-- pomme shit p (commande de palette)
-- reinedent: 
 
-- retirer threee js pour voir difference de poids
-- tester truc de david pour import threejs separer: 
-- faire un fichier js avec 
-import * as THREE from 'three';  dedans
-- loader ce fichier en async depuis ici, comme on fait dans general.js
 
 
 
 - cleaner le site: let et const au lieu de vars, pas les déclarer en haut
 - faire stats dans ficher js separer et importer. 
 
+- remettre le branch sur master et ensuite sur netlify, et checker si favcon ca va. 
 
+- mettre les images dans dom pour requet plus rapide? 
+
+- optimiser image optiImage  > comme image optim. e
 
 
 - debug logo clique fonctionne plus! surement a cause du innerhtml? 
@@ -91,6 +107,8 @@ import * as THREE from 'three';  dedans
 - finaliser 
 - ajouter du bruit dans la texture: lignes blanches dans ombres, etc -> mais garder les contrastes zonées, juste pour ajouter de la "resolution"
 - faire images finales en png  a cause de compression, comme david a
+
+
 
 - retina pour mobile? 
 
