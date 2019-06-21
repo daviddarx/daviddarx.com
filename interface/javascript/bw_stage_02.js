@@ -6,10 +6,9 @@ import Global from './general.js';
 const global = new Global();
 global.init();
 
+console.log("sdélk");
+
 /*
-var stage, stageContainer, app, ticker, linesGraphics, linesTexture, linesTextureSprite, frameGraphics, clickGraphics, 
-i, settings, mousePos, mousePosInStage, dmapsRep, currentDmapID, trianglesRep, mouseDistToCenterX, mouseDistToCenterY, stagePerimeter, currentStyle, currentTriangle, higherTrianglePoint, lowerTrianglePoint, mouseMoveTimeout, filterDMTimeout, changeStyleInterval, isClickGraphicsDisplayed, isMouseDown, isMouseDownDrawing, devicePixelRatioCustom, 
-hasClass, addClass, removeClass, setScene, firstImagesLoadCompleteListener, tickerListener, resizeListener, mouseDownListener, mouseUpListener, mouseMoveListener, drawLines, getPointPosition, updateTriangle, pointLifeUpdateListener, animateTriangles, changeStyle, mouseMoveTimeoutListener, filterDMTimeoutListener, filterDMTimeoutListenerUpdateListener, filterDMTimeoutListenerCompleteListener, drawFrame, drawClickGraphics, launchClickGraphics, launchClickGraphicsOnMouseDown, launchClickGraphicsAnimationOut, clickGraphicsAnimationCompleteListener;
 
 devicePixelRatioCustom = (window.devicePixelRatio!=1 && window.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
 
@@ -459,17 +458,6 @@ settings={
 			return radians * 180 / Math.PI;
 		};
 		
-		hasClass = function(el, className) {
-			return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
-		};
-		addClass = function(el, className) {
-			if (el.classList) el.classList.add(className);
-			else if (!hasClass(el, className)) el.className += ' ' + className;
-		};
-		removeClass = function(el, className) {
-			if (el.classList) el.classList.remove(className);
-			else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
-		};
 		
 		
 		

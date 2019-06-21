@@ -5,16 +5,15 @@ import Global from './general.js';
 const global = new Global();
 global.init();
 
-let i; 
-
 const devicePixelRatioCustom = (window.devicePixelRatio!=1 && global.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
 
 const settings={
 	imagesBW:2880, 
 	imagesBH:1600, 
 	filterSize:2048, 
-	imagesURL:['s1_dm_backgrounds/01.jpg', 's1_dm_backgrounds/02.jpg', 's1_dm_backgrounds/03.jpg', 's1_dm_backgrounds/04.jpg', 's1_dm_backgrounds/05.jpg', 's1_dm_backgrounds/06.jpg'], 
-	imagesNegativeURL:['s1_dm_backgrounds/01_neg.jpg', 's1_dm_backgrounds/02_neg.jpg', 's1_dm_backgrounds/03_neg.jpg', 's1_dm_backgrounds/04_neg.jpg', 's1_dm_backgrounds/05_neg.jpg', 's1_dm_backgrounds/06_neg.jpg'],
+	imagesFolder:'s1_dm_backgrounds/', 
+	imagesURL:['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg'], 
+	imagesNegativeURL:['01_neg.jpg', '02_neg.jpg', '03_neg.jpg', '04_neg.jpg', '05_neg.jpg', '06_neg.jpg'],
 	dmapsURL:['s1_dm_filters/01.jpg', 's1_dm_filters/02.jpg', 's1_dm_filters/03.jpg', 's1_dm_filters/04.jpg', 's1_dm_filters/05.jpg', 's1_dm_filters/06.jpg'],
 	dmapsParamaters:[
 		{
@@ -168,8 +167,8 @@ const setScene = () => {
 	global.domRefs.$stageContainer.style.cursor='pointer';
 	
 	const loader = new PIXI.loaders.Loader();
-	loader.add('first-image', settings.imagesURL[currentImageID]);
-	loader.add('first-image-neg', settings.imagesNegativeURL[currentImageID]);
+	loader.add('first-image', settings.imagesFolder+settings.imagesURL[currentImageID]);
+	loader.add('first-image-neg', settings.imagesFolder+settings.imagesNegativeURL[currentImageID]);
 	loader.add('first-filter', settings.dmapsURL[currentDmapID]);
 	loader.load(firstImagesLoadCompleteListener);
 	
@@ -177,15 +176,15 @@ const setScene = () => {
 	imagesColorMatrix = new PIXI.filters.ColorMatrixFilter();
 	imagesContainer.filters = [imagesColorMatrix];
 	
-	for(i=0; i<settings.imagesURL.length; i++){
-		let imageTexture = PIXI.Texture.fromImage(settings.imagesURL[i]);
+	for(let i=0; i<settings.imagesURL.length; i++){
+		let imageTexture = PIXI.Texture.fromImage(settings.imagesFolder+settings.imagesURL[i]);
 		let image = new PIXI.Sprite(imageTexture);
 		image.anchor.set(0.5);
 		imagesContainer.addChild(image);
 		if(i!=currentImageID){ 	image.alpha=0; }
 		imagesRep.push(image);
 		
-		imageTexture = PIXI.Texture.fromImage(settings.imagesNegativeURL[i]);
+		imageTexture = PIXI.Texture.fromImage(settings.imagesFolder+settings.imagesNegativeURL[i]);
 		image = new PIXI.Sprite(imageTexture);
 		image.anchor.set(0.5);
 		imagesContainer.addChild(image);
@@ -207,7 +206,7 @@ const setScene = () => {
 	app.stage.addChild(mouseMoveLineOverlay);
 	animateMouseMoveLineWidth();
 	
-	for(i=0; i<settings.dmapsURL.length; i++){
+	for(let i=0; i<settings.dmapsURL.length; i++){
 		
 		if(global.windowSize.width<settings.mobileBreakPointForDMScale){
 			settings.dmapsParamaters[i].spriteInitScale=settings.dmapsParamaters[i].spriteInitScale*settings.mobileDMScaleRatio;
@@ -269,7 +268,7 @@ const resizeListener = () => {
 	app.view.style.width=global.stageSettings.width+'px';
 	app.view.style.height=global.stageSettings.height+'px';
 	
-	for(i=0; i<imagesRep.length; i++){
+	for(let i=0; i<imagesRep.length; i++){
 		image=imagesRep[i];
 		
 		image.x = app.renderer.width / 2;
@@ -289,7 +288,7 @@ const resizeListener = () => {
 		imageNegativ.width = image.width;
 		imageNegativ.height = image.height;
 	}
-	for(i=0; i<settings.dmapsURL.length; i++){
+	for(let i=0; i<settings.dmapsURL.length; i++){
 		dmapsRep[i].sprite.scale.x = dmapsRep[i].sprite.scale.y = settings.dmapsParamaters[i].spriteInitScale;    
 		dmapsRep[i].sprite.x= (dmapsRep[i].sprite.scale.x*settings.filterSize - global.stageSettings.width) * -0.5;
 		dmapsRep[i].sprite.y= (dmapsRep[i].sprite.scale.y*settings.filterSize - global.stageSettings.height) * -0.5;	
@@ -465,7 +464,7 @@ const drawMouseMoveLine = () => {
 	mouseMoveLineOverlay.clear();
 	mouseMoveLineOverlay.moveTo(mouseMoveLinePointsArray[0].x, mouseMoveLinePointsArray[0].y);
 	
-	for(i=0; i<mouseMoveLinePointsArray.length; i++){
+	for(let i=0; i<mouseMoveLinePointsArray.length; i++){
 		mouseMoveLineOverlay.lineStyle(mouseMoveLinePointsArray[i].width*i/100*global.stageSettings.width, (isStageNegativ==true) ? settings.mouseMoveLineColorNegative : settings.mouseMoveLineColor, 1);
 		mouseMoveLineOverlay.lineTo(mouseMoveLinePointsArray[i].x, mouseMoveLinePointsArray[i].y);
 	}

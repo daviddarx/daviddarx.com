@@ -133,12 +133,6 @@ import SimplexNoise from "simplex-noise";
 
 export default (async function () { 
 	
-	var stage, stageContainer, audioButton, audioElement, 
-	settings, settingsThree, i, il, devicePixelRatioCustom, 
-	settingsThree, ThreeJS, threeJSObject, CameraControler, cameraControlerObject, scene, camera, renderer,  
-	mousePos, mousePosInStage, mouseDistToCenterX, mouseDistToCenterY, currentLetterPos, fontID, isAudioPlaying, currentAudioWordID, audioElementTimeUpdateInterval, currentLetterPosTargetForCamera, resizeListener, renderStage, test, 
-	hasClass, addClass, removeClass, setScene, mouseDownListener, mouseUpListener, keyPressListener, audioButtonMouseDownListener, audioElementTimeUpdateListener, audioElementEndListener;
-	
 	devicePixelRatioCustom = (window.devicePixelRatio!=1 && window.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
 	
 	settings={
@@ -1020,25 +1014,7 @@ export default (async function () {
 							};
 							
 							
-							Math.radians = function(degrees) {
-								return degrees * Math.PI / 180;
-							};
-							Math.degrees = function(radians) {
-								return radians * 180 / Math.PI;
-							};
-							
-							hasClass = function(el, className) {
-								return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
-							};
-							addClass = function(el, className) {
-								if (el.classList) el.classList.add(className);
-								else if (!hasClass(el, className)) el.className += ' ' + className;
-							};
-							removeClass = function(el, className) {
-								if (el.classList) el.classList.remove(className);
-								else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
-							};
-							
+						
 							
 							
 							setScene();

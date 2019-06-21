@@ -4,6 +4,7 @@
 - faire check du poids du tout.
 - js hint
 - checl plus de ""
+- check commentaire code david sur github
 
 - check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
 - check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
@@ -12,8 +13,6 @@
 */
 
 //import "./add_stats.js";
-
-let i;
 
 const globalSettings = {
 	urlBase : 'stage-', 
@@ -97,7 +96,7 @@ const Global = function(){
 		
 		this.domRefs.$pagination = document.querySelector('.pagination');
 		
-		for(i=0; i<globalSettings.animationsIDs.length; i++){
+		for(let i=0; i<globalSettings.animationsIDs.length; i++){
 			const zero = (i<9) ? '0' : ''; 
 			const $paginationLink = document.createElement('a');
 			$paginationLink.setAttribute('class', 'pagination__item');
@@ -119,13 +118,13 @@ const Global = function(){
 		window.addEventListener('resize', this.resizeListener);
 		this.resizeListener();
 		
-		this.addClass(this.domRefs.$stage, 'loadedStart');
+		this.domRefs.$stage.classList.add('loadedStart');
 		
 		document.body.classList.add(globalSettings.animationsIDs[this.stageID-1]);
 	};
 	
 	this.paginationClickListener = (e) => {
-		this.removeClass(this.domRefs.$stage,'loaded');
+		this.domRefs.$stage.classList.remove('loaded');
 		
 		setTimeout(() => {
 			window.location.href = e.target.getAttribute('href');
@@ -137,7 +136,7 @@ const Global = function(){
 	};
 	
 	this.logoClickListener = (e) => {
-		this.removeClass(this.domRefs.$stage, 'loaded');
+		this.domRefs.$stage.classList.remove('loaded');
 		
 		setTimeout(() => {	
 			window.location.href = this.domRefs.$paginationItems[(this.stageID < globalSettings.animationsIDs.length) ? this.stageID + 1 -1 : 0].getAttribute('href');
@@ -214,21 +213,9 @@ const Global = function(){
 	}
 	
 	this.setStageAsLoaded = () => {
-		this.addClass(this.domRefs.$stage, 'loaded');
+		this.domRefs.$stage.classList.add('loaded');
 	}
 	
-	
-	this.hasClass = (el, className) => {
-		return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
-	};
-	this.addClass = (el, className) => {
-		if (el.classList) el.classList.add(className);
-		else if (!this.hasClass(el, className)) el.className += ' ' + className;
-	};
-	this.removeClass = (el, className) => {
-		if (el.classList) el.classList.remove(className);
-		else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
-	};
 	
 	this.radians = (degrees) => {
 		return degrees * Math.PI / 180;
