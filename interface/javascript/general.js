@@ -10,6 +10,13 @@
 - diminuer le temps de changement entre deux images 
 
 
+
+- faire sous-domaine daviddarx pour les dossiers autres qui sont désormais avec _
+	- check si reress encore en ligne
+	- check si https fonctionne avec ssl lets encrypt? 
+	
+- faire sous dir de dist? https://www.npmjs.com/package/parcel-plugin-pre-dist pour pouvoir rempalcer facilement sur daviddarx
+
 - merger branch dès que code ok. 
 - faire nouvelle branch pour nouveau pixi.js
 
