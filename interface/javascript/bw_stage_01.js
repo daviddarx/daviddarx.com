@@ -262,7 +262,7 @@ const tickerListener = () => {
 };
 
 const resizeListener = () => {
-	var image, imageNegativ;
+	let image, imageNegativ;
 	
 	app.renderer.resize(global.stageSettings.width, global.stageSettings.height);
 	app.view.style.width=global.stageSettings.width+'px';
@@ -400,7 +400,7 @@ const changeNegativeMode = () => {
 };
 
 const changePicture = () => {
-	var newImageID;
+	let newImageID;
 	
 	if(isImageAnimated==false){
 		

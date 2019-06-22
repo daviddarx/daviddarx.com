@@ -1010,7 +1010,7 @@ export default (async function () {
 								
 								renderStage();
 								
-								addClass(stage, "loaded");
+								global.setStageAsLoaded();
 							};
 							
 							

@@ -1,9 +1,8 @@
 /*
-- unifier le listener resize
-- fair index.html avec redirect
-- faire check du poids du tout.
+f - faire check du poids du tout.
 - js hint
 - checl plus de ""
+- check plus de var
 - check commentaire code david sur github
 
 - check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
@@ -12,7 +11,7 @@
 - location.reload();
 */
 
-//import "./add_stats.js";
+//import './add_stats.js';
 
 const globalSettings = {
 	urlBase : 'stage-', 
