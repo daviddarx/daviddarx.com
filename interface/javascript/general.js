@@ -1,21 +1,15 @@
 /*
 
-- utiliser le tutos mouse move avec simple noise pour l'anime 01? 
-- https://css-tricks.com/simulating-mouse-movement/
-
-- anime 01: 
 - update pixisjs v5 https://medium.com/goodboy-digital/pixijs-v5-lands-5e112d84e510
+-- new branch
 - check perfs, si ca joue
-- change image de l'horloge trop blanche au milieu
-- diminuer le temps de changement entre deux images 
 
 
 
 - transfers des dossiers _ sur files.daviddarx.com
 	
-- faire nouvelle branch pour nouveau pixi.js
-
 - faire backup de version actuellement sur daviddarx pour comparer perfs
+-- check sur daviddar.com si le landing sur index.html fonctionne. 
 -- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
 -- check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
 -- window.location.hash=this.getAttribute("href").split("#")[1];

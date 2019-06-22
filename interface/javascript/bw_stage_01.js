@@ -1,5 +1,7 @@
 import { TweenMax } from 'gsap';
 import * as PIXI from 'pixi.js';
+import SimplexNoise from 'simplex-noise';
+
 
 import Global from './general.js';
 const global = new Global();
@@ -86,7 +88,7 @@ const settings={
 	imagesFilterAnimationInEase:Expo.easeOut, 
 	imagesFilterContrastMax:0.24, 
 	
-	changePictureTimeoutDuration: 20000,
+	changePictureTimeoutDuration: 17000,
 	
 	linesOverlayColor:0xffffff,
 	linesOverlayColorNegative:0x000000, 
@@ -108,6 +110,13 @@ const settings={
 	
 	mobileBreakPointForDMScale:560, 
 	mobileDMScaleRatio:0.5, 
+	
+	perlinNoiseMouseMoveInitValue:0.001, 
+	perlinNoiseMouseMoveIncrementMin:0.005, 
+	perlinNoiseMouseMoveIncrementMax:0.015, 
+	perlinNoiseMouseMoveIncrementAnimationDurationMin:0.5, 
+	perlinNoiseMouseMoveIncrementAnimationDurationMax:5,
+	perlinNoiseMouseMoveIncrementAnimationEase:Expo.easeInOut, 
 };
 
 let app;
@@ -129,10 +138,17 @@ const dmapsRep = [];
 
 let currentImage;
 let currentImageID = Math.floor(Math.random()*settings.imagesURL.length);
-let currentDmapID = currentImageID; //Math.floor(Math.random()*settings.dmapsURL.length);;
+let currentDmapID = currentImageID; 
+
 let isImageAnimated=false;
 let isStageNegativ=false;
+let isMouseMoveAutomatic=false;
 
+let perlinNoiseMouseMove;
+let perlinNoiseMouseMoveAskPosition=0;
+let perlinNoiseMouseMoveIncrementCurrrent={
+	value:settings.perlinNoiseMouseMoveIncrementMin
+};
 
 let mouseMoveLinePointsArray=[];
 
@@ -158,7 +174,7 @@ const imageTargetPosition = {
 
 
 const setScene = () => {
-
+	
 	app = new PIXI.Application(global.stageSettings.width, global.stageSettings.height, { antialias: false, resolution:devicePixelRatioCustom });
 	app.view.style.width=global.stageSettings.width+'px';
 	app.view.style.height=global.stageSettings.height+'px';
@@ -240,6 +256,9 @@ const setScene = () => {
 	
 	filterTimeOut=setTimeout(filterTimeOutListener, settings.imagesFilterTimeOutMinDuration+Math.random()*(settings.imagesFilterTimeOutMaxDuration-settings.imagesFilterTimeOutMinDuration));
 	
+	perlinNoiseMouseMove = new SimplexNoise(settings.perlinNoiseMouseMoveInitValue);
+	animateMouseMoveSpeed();
+
 	changePictureTimeout=setTimeout(changePicture, settings.changePictureTimeoutDuration);
 	mouseMoveTimeoutListener();
 };
@@ -255,6 +274,10 @@ const tickerListener = () => {
 	
 	currentImage.x+=(imageTargetPosition.x-currentImage.x)*settings.mouseMoveDecalEaseRatio;
 	currentImage.y+=(imageTargetPosition.y-currentImage.y)*settings.mouseMoveDecalEaseRatio;
+	
+	if(isMouseMoveAutomatic==true){
+		setMousePositionNoise();
+	}
 	
 	updateMouseMoveLinePoints();
 	
@@ -313,22 +336,29 @@ const mouseMoveListener = (e) => {
 	mouseDistToCenterX=mousePosInStage.x- global.stageSettings.width*0.5;
 	mouseDistToCenterY=mousePosInStage.y- global.stageSettings.height*0.5;
 	
-	if(mousePosInStage.positionTween!=undefined){
-		mousePosInStage.positionTween.kill();
-		mousePosInStage.positionTween=undefined;
-		mouseMoveLineOverlay.clear();
-		mouseMoveLinePointsArray=[];
-	}
-	
 	imageTargetPosition.x = global.stageSettings.width*0.5 - (mouseDistToCenterX/global.stageSettings.width/0.5) * global.stageSettings.width * (settings.mouseMoveDecalMaxRatio*0.5); 
 	imageTargetPosition.y = global.stageSettings.height*0.5 - (mouseDistToCenterY/global.stageSettings.height/0.5) * global.stageSettings.height * (settings.mouseMoveDecalMaxRatio*0.5); 
+	
+	isMouseMoveAutomatic=false;
 	
 	if(mouseMoveTimeout){ clearTimeout(mouseMoveTimeout); }
 	mouseMoveTimeout=setTimeout(mouseMoveTimeoutListener, settings.mouseMoveTimeoutDuration);
 };
 
+const setMousePositionNoise = () => {
+	mousePosInStage.x = global.stageSettings.width*0.5 + perlinNoiseMouseMove.noise2D(perlinNoiseMouseMoveAskPosition, 0) * global.stageSettings.width*0.5;
+	mousePosInStage.y = global.stageSettings.height*0.5 + perlinNoiseMouseMove.noise2D(perlinNoiseMouseMoveAskPosition, 1) * global.stageSettings.height*0.5;
+	
+	perlinNoiseMouseMoveAskPosition += perlinNoiseMouseMoveIncrementCurrrent.value;
+	updateMouseMoveLinePoints();
+};
+
+const animateMouseMoveSpeed = () => {
+	TweenMax.to(perlinNoiseMouseMoveIncrementCurrrent, settings.perlinNoiseMouseMoveIncrementAnimationDurationMin+Math.random()*settings.perlinNoiseMouseMoveIncrementAnimationDurationMax, { value: (perlinNoiseMouseMoveIncrementCurrrent.value==settings.perlinNoiseMouseMoveIncrementMin) ? settings.perlinNoiseMouseMoveIncrementMax : settings.perlinNoiseMouseMoveIncrementMin , ease:settings.perlinNoiseMouseMoveIncrementAnimationEase, onComplete:animateMouseMoveSpeed });			
+};
+
 const mouseMoveTimeoutListener = () => {
-	mousePosInStage.positionTween=TweenMax.to(mousePosInStage, settings.mousePosAutoAnimationDurationMin+Math.random()*settings.mousePosAutoAnimationDurationRandomMax, {x:Math.random()*global.stageSettings.width, y:Math.random()*global.stageSettings.height, ease:settings.mousePosAutoAnimationEase, onComplete:mouseMoveTimeoutListener, onUpdate:updateMouseMoveLinePoints});
+	isMouseMoveAutomatic=true;	
 };
 
 const updateMouseMoveLinePoints = () => { 
@@ -478,7 +508,7 @@ const drawRandomLines = () => {
 	linesOverlay.bezierCurveTo(Math.random() * global.stageSettings.width, Math.random() * global.stageSettings.height, Math.random() * global.stageSettings.width, Math.random() * global.stageSettings.height, Math.random() * global.stageSettings.width, global.stageSettings.height);
 	linesOverlay.moveTo(Math.random() * global.stageSettings.width, global.stageSettings.height);
 	linesOverlay.bezierCurveTo(Math.random() * global.stageSettings.width, Math.random() * global.stageSettings.height, Math.random() * global.stageSettings.width, Math.random() * global.stageSettings.height, Math.random() * global.stageSettings.width, 0);
-}
+};
 
 const filterTimeOutListener = () => {
 	clearTimeout(filterTimeOut);
