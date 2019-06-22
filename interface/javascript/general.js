@@ -1,14 +1,30 @@
 /*
-f - faire check du poids du tout.
-- js hint
-- checl plus de ""
-- check plus de var
-- check commentaire code david sur github
 
+- utiliser le tutos mouse move avec simple noise pour l'anime 01? 
+- https://css-tricks.com/simulating-mouse-movement/
+
+- anime 01: 
+- update pixisjs v5 https://medium.com/goodboy-digital/pixijs-v5-lands-5e112d84e510
+- check perfs, si ca joue
+- change image de l'horloge trop blanche au milieu
+- diminuer le temps de changement entre deux images 
+
+
+- merger branch dès que code ok. 
+- faire nouvelle branch pour nouveau pixi.js
+
+
+- faire backup de version actuellement sur daviddarx pour comparer perfs
 - check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
 - check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
 - window.location.hash=this.getAttribute("href").split("#")[1];
 - location.reload();
+
+- mettre le tout sur netlify? 
+-- changer DNS -> rediriger daviddar.com (a-record)
+-- ensuite faire branch developpement. 
+-- comme ca aussi https! 
+-- et faire sous-domaine pour ftp. 
 */
 
 //import './add_stats.js';
@@ -64,19 +80,19 @@ const Global = function(){
 	this.windowSize = {
 		width:undefined, 
 		height:undefined
-	}, 
+	};
 	this.stageSettings = {
 		posX:undefined, 
 		posY:undefined,
 		width:undefined, 
 		height:undefined
-	}, 
+	};
 	this.logoSettings = {
 		posX:undefined, 
 		posY:undefined,
 		width:undefined, 
 		height:undefined
-	}
+	};
 
 	this.externalResizeListener = undefined;
 	
@@ -108,7 +124,7 @@ const Global = function(){
 		this.domRefs.$paginationItems.forEach( (el) => {
 			el.addEventListener('click', (e) => this.paginationClickListener(e));
 			el.addEventListener('touchstart', (e) => this.paginationClickListener(e));
-		})
+		});
 		this.domRefs.$paginationItems[this.stageID-1].classList.add('active');
 		
 		this.stageAnimationOutDuration = window.getComputedStyle ? getComputedStyle(this.domRefs.$stageContainer, null) : this.domRefs.$stageContainer.currentStyle;
@@ -209,11 +225,11 @@ const Global = function(){
 		if(this.externalResizeListener != undefined){
 			this.externalResizeListener();
 		}
-	}
+	};
 	
 	this.setStageAsLoaded = () => {
 		this.domRefs.$stage.classList.add('loaded');
-	}
+	};
 	
 	
 	this.radians = (degrees) => {
