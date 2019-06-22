@@ -1,6 +1,3 @@
-# daviddarx.com
-
-# npm install stats.js
 David Darx digital playground
 
 ## Setup
