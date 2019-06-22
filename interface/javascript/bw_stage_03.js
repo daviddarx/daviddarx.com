@@ -7,8 +7,6 @@
 
 
 
-
-
 - finetunings: 		
 - augementer lettersRotationXRatioToCameraPosY dans settings? ca a avoir avec la diffence de position y de la camera pour suivre ll'inclinaison x des lettres
 

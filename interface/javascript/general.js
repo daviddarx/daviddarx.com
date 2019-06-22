@@ -11,27 +11,22 @@
 
 
 
-- faire sous-domaine daviddarx pour les dossiers autres qui sont désormais avec _
-	- check si reress encore en ligne
-	- check si https fonctionne avec ssl lets encrypt? 
+- transfers des dossiers _ sur files.daviddarx.com
 	
-- faire sous dir de dist? https://www.npmjs.com/package/parcel-plugin-pre-dist pour pouvoir rempalcer facilement sur daviddarx
-
-- merger branch dès que code ok. 
 - faire nouvelle branch pour nouveau pixi.js
 
-
 - faire backup de version actuellement sur daviddarx pour comparer perfs
-- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
-- check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
-- window.location.hash=this.getAttribute("href").split("#")[1];
-- location.reload();
+-- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
+-- check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
+-- window.location.hash=this.getAttribute("href").split("#")[1];
+-- location.reload();
 
 - mettre le tout sur netlify? 
 -- changer DNS -> rediriger daviddar.com (a-record)
 -- ensuite faire branch developpement. 
 -- comme ca aussi https! 
 -- et faire sous-domaine pour ftp. 
+
 */
 
 //import './add_stats.js';
