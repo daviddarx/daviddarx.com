@@ -2,7 +2,7 @@
   "name": "daviddarx.com",
   "version": "1.0.0",
   "description": "Site daviddarx.com",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "start": "parcel ./pages/*.html",
     "test": "echo \"Error: no test specified\" && exit 1",
