@@ -1,4 +1,26 @@
 /*
+
+- update pixisjs v5 https://medium.com/goodboy-digital/pixijs-v5-lands-5e112d84e510
+-- new branch
+- check perfs, si ca joue
+
+
+
+- transfers des dossiers _ sur files.daviddarx.com
+	
+- faire backup de version actuellement sur daviddarx pour comparer perfs
+-- check sur daviddar.com si le landing sur index.html fonctionne. 
+-- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
+-- check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
+-- window.location.hash=this.getAttribute("href").split("#")[1];
+-- location.reload();
+
+- mettre le tout sur netlify? 
+-- changer DNS -> rediriger daviddar.com (a-record)
+-- ensuite faire branch developpement. 
+-- comme ca aussi https! 
+-- et faire sous-domaine pour ftp. 
+
 */
 
 //import './add_stats.js';
