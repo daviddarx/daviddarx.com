@@ -4,10 +4,11 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 //Definitions de variables
 //////////////////////////////////////////////////////////////////
 
-$loadedAnimationDuration:1s;
+$loadedAnimationDuration:0.75s;
 $loadedAnimationEase:cubic-bezier(0.770, 0.000, 0.175, 1.000);
 $logoHoverAnimationDuration:0.5s; 
 $logoHoverAnimationEase:cubic-bezier(0.165, 0.840, 0.440, 1.000);
+$logoAnimationInDuration:0.25s;
 
 //////////////////////////////////////////////////////////////////
 //Fonts
@@ -92,6 +93,10 @@ body{
 				opacity:1;
 			}
 		}
+		.stage__logo{
+			opacity:1;
+			transition-duration:$logoAnimationInDuration;
+		}
 	}
 	&.loadedStart{
 		.stage__logo img:nth-of-type(1){
@@ -104,6 +109,8 @@ body{
 	position:absolute;
 	display:inline-block;
 	z-index:100;
+	opacity:0;
+	transition: opacity ease-out $loadedAnimationDuration;
 	
 	img{
 		position:absolute;

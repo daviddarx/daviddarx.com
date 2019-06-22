@@ -11,11 +11,9 @@
 - faire backup de version actuellement sur daviddarx pour comparer perfs
 -- check sur daviddar.com si le landing sur index.html fonctionne. 
 -- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
--- check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
--- window.location.hash=this.getAttribute("href").split("#")[1];
--- location.reload();
 
-- mettre le tout sur netlify? 
+
+- mettre le tout sur netlify? check probleme la bas des loading listener
 -- changer DNS -> rediriger daviddar.com (a-record)
 -- ensuite faire branch developpement. 
 -- comme ca aussi https! 
