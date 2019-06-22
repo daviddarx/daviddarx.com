@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+	
+	<include src="interface/html/head.html"></include>
+
+	<body>
+		<include src="interface/html/stage.html"></include>
+		<script >
+			const stagesNumber = 2;
+			const randomStageID = Math.floor(Math.random()*stagesNumber)+1;
+			const zero = (randomStageID<10) ? '0' : '' ;
+			window.location.href = 'stage-' + zero+randomStageID +'.html';
+		</script>
+	</body>
+
+</html>

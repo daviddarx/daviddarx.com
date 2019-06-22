@@ -1,12 +1,45 @@
- import "babel-polyfill";
- import Stats from 'stats.js'
+/*
 
-	let i;
+- utiliser le tutos mouse move avec simple noise pour l'anime 01? 
+- https://css-tricks.com/simulating-mouse-movement/
+
+- anime 01: 
+- update pixisjs v5 https://medium.com/goodboy-digital/pixijs-v5-lands-5e112d84e510
+- check perfs, si ca joue
+- change image de l'horloge trop blanche au milieu
+- diminuer le temps de changement entre deux images 
 
 
-	const animationsIDRep = Array("animation-01", "animation-02", "animation-03");
 
-	const breakPointsDefinitions = Array(
+- faire sous-domaine daviddarx pour les dossiers autres qui sont désormais avec _
+	- check si reress encore en ligne
+	- check si https fonctionne avec ssl lets encrypt? 
+	
+- faire sous dir de dist? https://www.npmjs.com/package/parcel-plugin-pre-dist pour pouvoir rempalcer facilement sur daviddarx
+
+- merger branch dès que code ok. 
+- faire nouvelle branch pour nouveau pixi.js
+
+
+- faire backup de version actuellement sur daviddarx pour comparer perfs
+- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
+- check dist sur daviddarx: est-ce que le logo blink au pageload? si oui, reessayer avec ancienne methode? 
+- window.location.hash=this.getAttribute("href").split("#")[1];
+- location.reload();
+
+- mettre le tout sur netlify? 
+-- changer DNS -> rediriger daviddar.com (a-record)
+-- ensuite faire branch developpement. 
+-- comme ca aussi https! 
+-- et faire sous-domaine pour ftp. 
+*/
+
+//import './add_stats.js';
+
+const globalSettings = {
+	urlBase : 'stage-', 
+	animationsIDs : ['animation-01', 'animation-02', 'animation-03'], 
+	breakPointsDefinitions : [
 		{
 			width:1440, 
 			stageBorderLeft:0.05, 
@@ -37,169 +70,185 @@
 			logoPosY:0.06, 
 			logoHeight:0.07
 		}
-	);
+	]
+};
 
-	window.windowSize = {
+
+
+const Global = function(){
+	
+	this.url = undefined;
+	this.stageID = undefined;
+	
+	this.domRefs = { };
+	
+	this.stageAnimationOutDuration = undefined;
+	
+	this.windowSize = {
+		width:undefined, 
+		height:undefined
+	};
+	this.stageSettings = {
+		posX:undefined, 
+		posY:undefined,
+		width:undefined, 
+		height:undefined
+	};
+	this.logoSettings = {
+		posX:undefined, 
+		posY:undefined,
 		width:undefined, 
 		height:undefined
 	};
 
-	window.stageSettings = {
-		posX:undefined, 
-		posY:undefined,
-		width:undefined, 
-		height:undefined, 
-	};
-
-	window.logoSettings = {
-		posX:undefined, 
-		posY:undefined,
-		width:undefined, 
-		height:undefined
-	};
-
-
-
-
-	const hasClass = function(el, className) {
-		return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
-	};
-	const addClass = function(el, className) {
-		if (el.classList) el.classList.add(className);
-		else if (!hasClass(el, className)) el.className += ' ' + className;
-	};
-	const removeClass = function(el, className) {
-		if (el.classList) el.classList.remove(className);
-		else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
-	};
-
-	const stageResizer = function(){
-		window.windowSize.width = (window.innerWidth || screen.width);
-		window.windowSize.height = (window.innerHeight || screen.height);
-
-		if(window.windowSize.width<=breakPointsDefinitions[1].width){
-
-			window.stageSettings.posX = window.windowSize.width * breakPointsDefinitions[2].logoPosX + window.windowSize.width * breakPointsDefinitions[2].logoHeight*0.9 + window.windowSize.width * breakPointsDefinitions[2].stageBorderLeft;
-			window.stageSettings.posY = window.windowSize.width * breakPointsDefinitions[2].stageBorderTop;
-			window.stageSettings.width = window.windowSize.width - window.stageSettings.posX - window.windowSize.width*breakPointsDefinitions[2].stageBorderRight;
-			window.stageSettings.height = window.windowSize.height - window.windowSize.width*breakPointsDefinitions[2].stageBorderTop - window.windowSize.width*breakPointsDefinitions[2].stageBorderBottom;
-
-			window.logoSettings.posX = window.windowSize.width * breakPointsDefinitions[2].logoPosX; 
-			window.logoSettings.posY = window.windowSize.width * breakPointsDefinitions[2].logoPosY; 
-			window.logoSettings.height = window.windowSize.width * breakPointsDefinitions[2].logoHeight; 	
-
-		}else if(window.windowSize.width<=breakPointsDefinitions[0].width){
-
-			window.stageSettings.posX = window.windowSize.width * breakPointsDefinitions[1].logoPosX + window.windowSize.width * breakPointsDefinitions[1].logoHeight*0.9 + window.windowSize.width * breakPointsDefinitions[1].stageBorderLeft;
-			window.stageSettings.posY = window.windowSize.width * breakPointsDefinitions[1].stageBorderTop;
-			window.stageSettings.width = window.windowSize.width - window.stageSettings.posX - window.windowSize.width*breakPointsDefinitions[1].stageBorderRight;
-			window.stageSettings.height = window.windowSize.height - window.windowSize.width*breakPointsDefinitions[1].stageBorderTop - window.windowSize.width*breakPointsDefinitions[1].stageBorderBottom;
-
-			window.logoSettings.posX = window.windowSize.width * breakPointsDefinitions[1].logoPosX; 
-			window.logoSettings.posY = window.windowSize.width * breakPointsDefinitions[1].logoPosY; 
-			window.logoSettings.height = window.windowSize.width * breakPointsDefinitions[1].logoHeight; 	
-
-		}else{
-
-			window.stageSettings.posX = window.windowSize.width * breakPointsDefinitions[0].logoPosX + window.windowSize.width * breakPointsDefinitions[0].logoHeight*0.9 + window.windowSize.width * breakPointsDefinitions[0].stageBorderLeft;
-			window.stageSettings.posY = window.windowSize.width * breakPointsDefinitions[0].stageBorderTop;
-			window.stageSettings.width = window.windowSize.width - window.stageSettings.posX - window.windowSize.width*breakPointsDefinitions[0].stageBorderRight;
-			window.stageSettings.height = window.windowSize.height - window.windowSize.width*breakPointsDefinitions[0].stageBorderTop - window.windowSize.width*breakPointsDefinitions[0].stageBorderBottom;
-
-			window.logoSettings.posX = window.windowSize.width * breakPointsDefinitions[0].logoPosX; 
-			window.logoSettings.posY = window.windowSize.width * breakPointsDefinitions[0].logoPosY; 
-			window.logoSettings.height = window.windowSize.width * breakPointsDefinitions[0].logoHeight; 
+	this.externalResizeListener = undefined;
+	
+	this.init = () => {
+		this.url = window.location.pathname;
+		this.stageID = parseInt(this.url.substring(this.url.lastIndexOf('/')+1).split('.html')[0].split(globalSettings.urlBase)[1]);
+		
+		this.domRefs.$logo = document.querySelector('.stage__logo');
+		this.domRefs.$logo.addEventListener('click', (e) => this.logoClickListener(e));
+		this.domRefs.$logo.addEventListener('touchstart', (e) => this.logoClickListener(e));
+		this.domRefs.$logoImg = Array.prototype.slice.call(this.domRefs.$logo.querySelectorAll('img'));
+		this.domRefs.$logoLink = this.domRefs.$logo.getElementsByTagName('a');
+		
+		this.domRefs.$stage = document.querySelector('.stage');
+		this.domRefs.$stageContainer = document.querySelector('.stage__container');
+		
+		this.domRefs.$pagination = document.querySelector('.pagination');
+		
+		for(let i=0; i<globalSettings.animationsIDs.length; i++){
+			const zero = (i<9) ? '0' : ''; 
+			const $paginationLink = document.createElement('a');
+			$paginationLink.setAttribute('class', 'pagination__item');
+			$paginationLink.setAttribute('href', globalSettings.urlBase + zero + (i+1) + '.html');
+			$paginationLink.innerHTML += zero + (i+1);
+			this.domRefs.$pagination.appendChild($paginationLink);
 		}
-		logo.style.left=window.logoSettings.posX+"px";
-		logo.style.top=window.logoSettings.posY+"px";
-
-		logoImg[0].style.height=window.logoSettings.height+"px";
-		logoImg[1].style.height=window.logoSettings.height+"px";
-
-		window.stageSettings.width=Math.round(window.stageSettings.width);
-		window.stageSettings.height=Math.round(window.stageSettings.height);
-
-		stageContainer.style.left=window.stageSettings.posX+"px";
-		stageContainer.style.top=window.stageSettings.posY+"px";
-		stageContainer.style.width=window.stageSettings.width+"px";
-		stageContainer.style.height=window.stageSettings.height+"px";
-
-		pagination.style.right=(window.windowSize.width - window.stageSettings.posX - window.stageSettings.width)+"px";
-
-		for(i=0; i<paginationItems.length; i++){
-			paginationItems[i].style.width=(window.windowSize.width - window.stageSettings.posX - window.stageSettings.width)+"px";
-			paginationItems[i].style.height=(window.windowSize.width - window.stageSettings.posX - window.stageSettings.width)+"px";
-		};
+		
+		this.domRefs.$paginationItems = Array.prototype.slice.call(this.domRefs.$pagination.querySelectorAll('a')); 
+		this.domRefs.$paginationItems.forEach( (el) => {
+			el.addEventListener('click', (e) => this.paginationClickListener(e));
+			el.addEventListener('touchstart', (e) => this.paginationClickListener(e));
+		});
+		this.domRefs.$paginationItems[this.stageID-1].classList.add('active');
+		
+		this.stageAnimationOutDuration = window.getComputedStyle ? getComputedStyle(this.domRefs.$stageContainer, null) : this.domRefs.$stageContainer.currentStyle;
+		this.stageAnimationOutDuration = parseInt(this.stageAnimationOutDuration.transitionDuration.split('s')[0])*1000;
+		
+		window.addEventListener('resize', this.resizeListener);
+		this.resizeListener();
+		
+		this.domRefs.$stage.classList.add('loadedStart');
+		
+		document.body.classList.add(globalSettings.animationsIDs[this.stageID-1]);
 	};
-
-	const paginationClickListener = function(){
-		window.location.hash=this.getAttribute("href").split("#")[1];
-		removeClass(stage,"loaded");
-		setTimeout(function(){
-			location.reload();
-		}, loadAnimationDuration);
-		return false;		
-	};	
-
-	const logoClickListener = function(){
-		window.location.hash=(window.currentStageID<animationsIDRep.length)?window.currentStageID+1:1;
-		removeClass(stage, "loaded");
-		setTimeout(function(){
-			location.reload();
-		}, loadAnimationDuration);
+	
+	this.paginationClickListener = (e) => {
+		this.domRefs.$stage.classList.remove('loaded');
+		
+		setTimeout(() => {
+			window.location.href = e.target.getAttribute('href');
+		}, this.stageAnimationOutDuration);
+		
+		e.preventDefault();
+		e.stopPropagation();
 		return false;
 	};
-
-	const hashArray = window.location.hash.split("#");
-	window.currentStageID = (hashArray.length>1) ? parseInt(hashArray[1]) : Math.floor(Math.random()*animationsIDRep.length+1);
-
-	const logo=document.getElementById("stage__logo");
-	const logoImg=logo.getElementsByTagName("img");
-	const stage=document.getElementById("stage");
-	const stageContainer=document.getElementById("stage__container");
-	const pagination=document.getElementById("pagination");
-	if(animationsIDRep.length>1){
-		for(i=0; i<animationsIDRep.length; i++){
-			pagination.innerHTML+='<a href="#'+(i+1)+'" class="pagination__item">'+(i+1)+'</a>';
-		}
-	}
-	const paginationItems=document.getElementsByClassName("pagination__item");
-	for(i=0; i<paginationItems.length; i++){
-		paginationItems[i].addEventListener("click", paginationClickListener);
-		paginationItems[i].addEventListener("touchstart", paginationClickListener);
-	};
-	const logoLink=logo.getElementsByTagName("a");		
-	let loadAnimationDuration=window.getComputedStyle ? getComputedStyle(stageContainer, null) : stageContainer.currentStyle;
-	loadAnimationDuration=parseInt(loadAnimationDuration.transitionDuration.split("s")[0])*1000;
-
-	window.addEventListener('resize', stageResizer);
-	stageResizer();
-
-	addClass(stage, "loadedStart");
 	
-	if(animationsIDRep.length>1){
-		paginationItems[window.currentStageID-1].classList.add("active");
-	}
-	async function loadScript(){
-		if(window.currentStageID==1){
-			const stageScript = import("./bw_stage_01.js").then((stageScript) => {});
-		}else if(window.currentStageID==2){
-			const stageScript = import("./bw_stage_02.js").then((stageScript) => {});
-		}else if(window.currentStageID==3){
-			const stageScript = import("./bw_stage_03.js").then((stageScript) => {});
+	this.logoClickListener = (e) => {
+		this.domRefs.$stage.classList.remove('loaded');
+		
+		setTimeout(() => {	
+			window.location.href = this.domRefs.$paginationItems[(this.stageID < globalSettings.animationsIDs.length) ? this.stageID + 1 -1 : 0].getAttribute('href');
+			
+		}, this.stageAnimationOutDuration);
+		
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	};
+	
+	this.resizeListener = () => {
+		this.windowSize.width = (window.innerWidth || screen.width);
+		this.windowSize.height = (window.innerHeight || screen.height);
+		
+		if(this.windowSize.width<=globalSettings.breakPointsDefinitions[1].width){
+			
+			this.stageSettings.posX = this.windowSize.width * globalSettings.breakPointsDefinitions[2].logoPosX + this.windowSize.width * globalSettings.breakPointsDefinitions[2].logoHeight*0.9 + this.windowSize.width * globalSettings.breakPointsDefinitions[2].stageBorderLeft;
+			this.stageSettings.posY = this.windowSize.width * globalSettings.breakPointsDefinitions[2].stageBorderTop;
+			this.stageSettings.width = this.windowSize.width - this.stageSettings.posX - this.windowSize.width*globalSettings.breakPointsDefinitions[2].stageBorderRight;
+			this.stageSettings.height = this.windowSize.height - this.windowSize.width*globalSettings.breakPointsDefinitions[2].stageBorderTop - this.windowSize.width*globalSettings.breakPointsDefinitions[2].stageBorderBottom;
+			
+			this.logoSettings.posX = this.windowSize.width * globalSettings.breakPointsDefinitions[2].logoPosX; 
+			this.logoSettings.posY = this.windowSize.width * globalSettings.breakPointsDefinitions[2].logoPosY; 
+			this.logoSettings.height = this.windowSize.width * globalSettings.breakPointsDefinitions[2].logoHeight; 	
+			
+		}else if(this.windowSize.width<=globalSettings.breakPointsDefinitions[0].width){
+			
+			this.stageSettings.posX = this.windowSize.width * globalSettings.breakPointsDefinitions[1].logoPosX + this.windowSize.width * globalSettings.breakPointsDefinitions[1].logoHeight*0.9 + this.windowSize.width * globalSettings.breakPointsDefinitions[1].stageBorderLeft;
+			this.stageSettings.posY = this.windowSize.width * globalSettings.breakPointsDefinitions[1].stageBorderTop;
+			this.stageSettings.width = this.windowSize.width - this.stageSettings.posX - this.windowSize.width*globalSettings.breakPointsDefinitions[1].stageBorderRight;
+			this.stageSettings.height = this.windowSize.height - this.windowSize.width*globalSettings.breakPointsDefinitions[1].stageBorderTop - this.windowSize.width*globalSettings.breakPointsDefinitions[1].stageBorderBottom;
+			
+			this.logoSettings.posX = this.windowSize.width * globalSettings.breakPointsDefinitions[1].logoPosX; 
+			this.logoSettings.posY = this.windowSize.width * globalSettings.breakPointsDefinitions[1].logoPosY; 
+			this.logoSettings.height = this.windowSize.width * globalSettings.breakPointsDefinitions[1].logoHeight; 	
+			
+		}else{
+			
+			this.stageSettings.posX = this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoPosX + this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoHeight*0.9 + this.windowSize.width * globalSettings.breakPointsDefinitions[0].stageBorderLeft;
+			this.stageSettings.posY = this.windowSize.width * globalSettings.breakPointsDefinitions[0].stageBorderTop;
+			this.stageSettings.width = this.windowSize.width - this.stageSettings.posX - this.windowSize.width*globalSettings.breakPointsDefinitions[0].stageBorderRight;
+			this.stageSettings.height = this.windowSize.height - this.windowSize.width*globalSettings.breakPointsDefinitions[0].stageBorderTop - this.windowSize.width*globalSettings.breakPointsDefinitions[0].stageBorderBottom;
+			
+			this.logoSettings.posX = this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoPosX; 
+			this.logoSettings.posY = this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoPosY; 
+			this.logoSettings.height = this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoHeight; 
+		}
+		
+		this.domRefs.$logo.style.left=this.logoSettings.posX+'px';
+		this.domRefs.$logo.style.top=this.logoSettings.posY+'px';
+		
+		this.domRefs.$logoImg[0].style.height=this.logoSettings.height+'px';
+		this.domRefs.$logoImg[1].style.height=this.logoSettings.height+'px';
+		
+		this.stageSettings.width=Math.round(this.stageSettings.width);
+		this.stageSettings.height=Math.round(this.stageSettings.height);
+		
+		this.domRefs.$stageContainer.style.left=this.stageSettings.posX+'px';
+		this.domRefs.$stageContainer.style.top=this.stageSettings.posY+'px';
+		this.domRefs.$stageContainer.style.width=this.stageSettings.width+'px';
+		this.domRefs.$stageContainer.style.height=this.stageSettings.height+'px';
+		
+		this.domRefs.$pagination.style.right=(this.windowSize.width - this.stageSettings.posX - this.stageSettings.width)+'px';
+		
+		this.domRefs.$paginationItems.forEach((el) => {
+			el.style.width=(this.windowSize.width - this.stageSettings.posX - this.stageSettings.width)+'px';
+			el.style.height=(this.windowSize.width - this.stageSettings.posX - this.stageSettings.width)+'px';
+		});
+
+		if(this.externalResizeListener != undefined){
+			this.externalResizeListener();
 		}
 	};
-	loadScript();
+	
+	this.setStageAsLoaded = () => {
+		this.domRefs.$stage.classList.add('loaded');
+	};
+	
+	
+	this.radians = (degrees) => {
+		return degrees * Math.PI / 180;
+	};
+	this.degrees = (radians) => {
+		return radians * 180 / Math.PI;
+	};
+};
 
-	document.body.classList.add(animationsIDRep[window.currentStageID-1]);
+export default Global;
 
-	const stats=new Stats();
-	document.body.appendChild(stats.dom);
-	requestAnimationFrame(function loop(){
-		stats.update();
-		requestAnimationFrame(loop)
-		}
-	);
 
 
 
