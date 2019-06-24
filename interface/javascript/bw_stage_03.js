@@ -170,7 +170,7 @@ const settings={
 		poemAudioStartTime:0
 	}, 
 	
-	maxLetterNumber:100, //60
+	maxLetterNumber:140, //60
 	maxSpiraleBoxesNumber:100, //60
 	destroyMeshesIntervalDuration:20000,
 	
