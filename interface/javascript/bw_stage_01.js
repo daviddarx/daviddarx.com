@@ -178,29 +178,29 @@ const setScene = () => {
 	app = new PIXI.Application(global.stageSettings.width, global.stageSettings.height, { antialias: false, resolution:devicePixelRatioCustom });
 	app.view.style.width=global.stageSettings.width+'px';
 	app.view.style.height=global.stageSettings.height+'px';
+	app.renderer.resolution=devicePixelRatioCustom;
 	
 	global.domRefs.$stageContainer.appendChild(app.view);
 	global.domRefs.$stageContainer.style.cursor='pointer';
 	
-	const loader = new PIXI.loaders.Loader();
-	loader.add('first-image', settings.imagesFolder+settings.imagesURL[currentImageID]);
-	loader.add('first-image-neg', settings.imagesFolder+settings.imagesNegativeURL[currentImageID]);
-	loader.add('first-filter', settings.dmapsURL[currentDmapID]);
-	loader.load(firstImagesLoadCompleteListener);
+	app.loader.add('first-image', settings.imagesFolder+settings.imagesURL[currentImageID]);
+	app.loader.add('first-image-neg', settings.imagesFolder+settings.imagesNegativeURL[currentImageID]);
+	app.loader.add('first-filter', settings.dmapsURL[currentDmapID]);
+	app.loader.load(firstImagesLoadCompleteListener);
 	
 	const imagesContainer = new PIXI.Container();
 	imagesColorMatrix = new PIXI.filters.ColorMatrixFilter();
 	imagesContainer.filters = [imagesColorMatrix];
 	
 	for(let i=0; i<settings.imagesURL.length; i++){
-		let imageTexture = PIXI.Texture.fromImage(settings.imagesFolder+settings.imagesURL[i]);
+		let imageTexture = PIXI.Texture.from(settings.imagesFolder+settings.imagesURL[i]);
 		let image = new PIXI.Sprite(imageTexture);
 		image.anchor.set(0.5);
 		imagesContainer.addChild(image);
 		if(i!=currentImageID){ 	image.alpha=0; }
 		imagesRep.push(image);
 		
-		imageTexture = PIXI.Texture.fromImage(settings.imagesFolder+settings.imagesNegativeURL[i]);
+		imageTexture = PIXI.Texture.from(settings.imagesFolder+settings.imagesNegativeURL[i]);
 		image = new PIXI.Sprite(imageTexture);
 		image.anchor.set(0.5);
 		imagesContainer.addChild(image);
@@ -230,7 +230,7 @@ const setScene = () => {
 			settings.dmapsParamaters[i].maxFilterScale=settings.dmapsParamaters[i].maxFilterScale*settings.mobileDMScaleRatio;
 		}
 		
-		let displacementSprite = PIXI.Sprite.fromImage(settings.dmapsURL[i]);
+		let displacementSprite = PIXI.Sprite.from(settings.dmapsURL[i]);
 		displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT;   
 		
 		displacementSprite.scale.x=displacementSprite.scale.y=settings.dmapsParamaters[i].spriteInitScale;
@@ -250,9 +250,8 @@ const setScene = () => {
 	app.stage.filters = [dmapsRep[currentDmapID].filter];
 	tickerListener();
 	
-	const ticker = new PIXI.ticker.Ticker();
-	ticker.autoStart = true;
-	ticker.add(tickerListener);
+	app.ticker.autoStart = true;
+	app.ticker.add(tickerListener);
 	
 	filterTimeOut=setTimeout(filterTimeOutListener, settings.imagesFilterTimeOutMinDuration+Math.random()*(settings.imagesFilterTimeOutMaxDuration-settings.imagesFilterTimeOutMinDuration));
 	
