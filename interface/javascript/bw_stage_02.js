@@ -8,6 +8,7 @@ global.init();
 
 const devicePixelRatioCustom = (window.devicePixelRatio!=1 && global.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
 
+
 const settings = {
 	dmapsURL:['s2_dm_filter/dm_grain.jpg'],
 	dmapsParamaters:[
@@ -114,22 +115,20 @@ let lowerTrianglePoint;
 
 
 const setScene = () => {
-	let loader, displacementSprite, displacementFilter; 
+	let displacementSprite, displacementFilter; 
 	
 	app = new PIXI.Application(global.stageSettings.width, global.stageSettings.height, { antialias: false, resolution:devicePixelRatioCustom });
-	app.view.style.width=global.stageSettings.width+'px';
-	app.view.style.height=global.stageSettings.height+'px';
+	app.renderer.resolution=devicePixelRatioCustom;
 	
 	global.domRefs.$stageContainer.appendChild(app.view);
 	global.domRefs.$stageContainer.style.cursor='pointer';
 	
-	linesTexture = PIXI.RenderTexture.create( global.stageSettings.width, global.stageSettings.height, PIXI.settings.SCALE_MODE, devicePixelRatioCustom);
+	linesTexture = PIXI.RenderTexture.create( global.stageSettings.width*5, global.stageSettings.height*4, PIXI.settings.SCALE_MODE, devicePixelRatioCustom);
 	linesTextureSprite = new PIXI.Sprite(linesTexture);
 	app.stage.addChild(linesTextureSprite);
 	
-	loader = new PIXI.loaders.Loader();
-	loader.add('first-filter', settings.dmapsURL[currentDmapID]);
-	loader.load(firstImagesLoadCompleteListener);
+	app.loader.add('first-filter', settings.dmapsURL[currentDmapID]);
+	app.loader.load(firstImagesLoadCompleteListener);
 	
 	linesGraphics = new PIXI.Graphics();
 	app.stage.addChild(linesGraphics);
@@ -147,7 +146,7 @@ const setScene = () => {
 	
 	for(let i=0; i<settings.dmapsURL.length; i++){
 		
-		displacementSprite = PIXI.Sprite.fromImage(settings.dmapsURL[i]);
+		displacementSprite = PIXI.Sprite.from(settings.dmapsURL[i]);
 		displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT;
 		displacementSprite.scale.y = settings.dmapsParamaters[i].spriteInitScale;
 		displacementSprite.scale.x = settings.dmapsParamaters[i].spriteInitScale;
@@ -166,9 +165,8 @@ const setScene = () => {
 	app.stage.filters = [dmapsRep[currentDmapID].filter];
 	tickerListener();
 	
-	let ticker = new PIXI.ticker.Ticker();
-	ticker.autoStart = true;
-	ticker.add(tickerListener);
+	app.ticker.autoStart = true;
+	app.ticker.add(tickerListener);
 	
 	currentTriangle=trianglesRep[0];
 	currentTriangle.p1.lifeB1=currentTriangle.p1.life%1;
@@ -181,6 +179,8 @@ const setScene = () => {
 	changeStyleInterval=setInterval(changeStyle, settings.changeStyleIntervalDuration);
 	
 	launchClickGraphics(false);
+
+	resizeListener();
 };
 
 const firstImagesLoadCompleteListener = () => {
@@ -210,8 +210,7 @@ const resizeListener = () => {
 		drawFrame();
 		dmapsRep[currentDmapID].filter.scale.x=(global.windowSize.width<settings.mobileBreakPointForDMScale) ? settings.dmapsParamaters[currentDmapID].minFilterScale*settings.mobileDMScaleRatio : settings.dmapsParamaters[currentDmapID].minFilterScale;
 		dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x*global.stageSettings.width/global.stageSettings.height;
-	}
-	
+	}	
 };
 
 const mouseMoveListener = (e) => {
