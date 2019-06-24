@@ -1,10 +1,12 @@
+# daviddarx.com
+
 David Darx digital playground
 
 ## Setup
 
-This site is generated statically using[parcel.js](https://parceljs.org/cli.html)
+This site is generated statically using [parcel.js](https://parceljs.org/cli.html)
 
-1. `git pull https://github.com/daviddarx/daviddarx.com.git && cd david daviddarx.com`
+1. `git pull https://github.com/daviddarx/daviddarx.com.git && cd daviddarx.com`
 2. Make sure you have [node](https://nodejs.org/en/) installed
 3. `npm install`
 4. to work on the project `npm start`
