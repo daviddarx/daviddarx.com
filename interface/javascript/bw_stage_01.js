@@ -112,9 +112,9 @@ const settings={
 	mobileDMScaleRatio:0.5, 
 	
 	perlinNoiseMouseMoveInitValue:0.001, 
-	perlinNoiseMouseMoveIncrementMin:0.005, 
-	perlinNoiseMouseMoveIncrementMax:0.015, 
-	perlinNoiseMouseMoveIncrementAnimationDurationMin:0.5, 
+	perlinNoiseMouseMoveIncrementMin:0.0025, // 0.005 
+	perlinNoiseMouseMoveIncrementMax:0.010, // 0.15
+	perlinNoiseMouseMoveIncrementAnimationDurationMin:1, //0.5
 	perlinNoiseMouseMoveIncrementAnimationDurationMax:5,
 	perlinNoiseMouseMoveIncrementAnimationEase:Expo.easeInOut, 
 };

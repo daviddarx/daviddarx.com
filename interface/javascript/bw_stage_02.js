@@ -13,9 +13,9 @@ const settings = {
 	dmapsURL:['s2_dm_filter/dm_grain.jpg'],
 	dmapsParamaters:[
 		{
-			spriteInitScale: (devicePixelRatioCustom==1) ? 0.6 : 0.6,
-			minFilterScale:(devicePixelRatioCustom==1) ? 4 : 2, 
-			maxFilterScale:(devicePixelRatioCustom==1) ? 20 : 15,  
+			spriteInitScale: (devicePixelRatioCustom==1) ? 0.3 : 0.3,
+			minFilterScale:(devicePixelRatioCustom==1) ? 6 : 3, 
+			maxFilterScale:(devicePixelRatioCustom==1) ? 30 : 20,  
 			filterPosIncrementX:0.03, 
 			filterPosIncrementY:0.03
 		}
@@ -55,7 +55,7 @@ const settings = {
 	changeStyleIntervalDuration:10000, 
 	
 	mobileBreakPointForDMScale:560, 
-	mobileDMScaleRatio:0.5, 
+	mobileDMScaleRatio:0.5  , 
 };
 
 const trianglesRep = [
@@ -153,7 +153,7 @@ const setScene = () => {
 		
 		displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);			
 		displacementFilter.scale.x=(global.windowSize.width<settings.mobileBreakPointForDMScale) ? settings.dmapsParamaters[i].minFilterScale*settings.mobileDMScaleRatio : settings.dmapsParamaters[i].minFilterScale;
-		displacementFilter.scale.y=displacementFilter.scale.x*global.stageSettings.width/global.stageSettings.height;
+		displacementFilter.scale.y=displacementFilter.scale.x;
 		
 		dmapsRep.push({
 			sprite:displacementSprite, 
@@ -201,16 +201,13 @@ const tickerListener = () => {
 };
 
 const resizeListener = () => {
-		
-	if(app){
-		app.renderer.resize(global.stageSettings.width, global.stageSettings.height);
-		linesTexture.baseTexture.resize(global.stageSettings.width, global.stageSettings.height);
-		app.view.style.width=global.stageSettings.width+'px';
-		app.view.style.height=global.stageSettings.height+'px';
-		drawFrame();
-		dmapsRep[currentDmapID].filter.scale.x=(global.windowSize.width<settings.mobileBreakPointForDMScale) ? settings.dmapsParamaters[currentDmapID].minFilterScale*settings.mobileDMScaleRatio : settings.dmapsParamaters[currentDmapID].minFilterScale;
-		dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x*global.stageSettings.width/global.stageSettings.height;
-	}	
+	app.renderer.resize(global.stageSettings.width, global.stageSettings.height);
+	linesTexture.baseTexture.resize(global.stageSettings.width, global.stageSettings.height);
+	app.view.style.width=global.stageSettings.width+'px';
+	app.view.style.height=global.stageSettings.height+'px';
+	drawFrame();
+	dmapsRep[currentDmapID].filter.scale.x=(global.windowSize.width<settings.mobileBreakPointForDMScale) ? settings.dmapsParamaters[currentDmapID].minFilterScale*settings.mobileDMScaleRatio : settings.dmapsParamaters[currentDmapID].minFilterScale;
+	dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x;
 };
 
 const mouseMoveListener = (e) => {
@@ -446,12 +443,12 @@ const filterDMTimeoutListener = () => {
 };
 const filterDMTimeoutListenerUpdateListener = () => {
 	dmapsRep[currentDmapID].filter.scale.x=(global.windowSize.width<settings.mobileBreakPointForDMScale) ? Math.random()*settings.dmapsParamaters[currentDmapID].maxFilterScale*settings.mobileDMScaleRatio : Math.random()*settings.dmapsParamaters[currentDmapID].maxFilterScale;
-	dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x*global.stageSettings.width/global.stageSettings.height;
+	dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x;
 	
 };
 const filterDMTimeoutListenerCompleteListener = () => {
 	dmapsRep[currentDmapID].filter.scale.x=(global.windowSize.width<settings.mobileBreakPointForDMScale) ? settings.dmapsParamaters[currentDmapID].minFilterScale*settings.mobileDMScaleRatio : settings.dmapsParamaters[currentDmapID].minFilterScale;
-	dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x*global.stageSettings.width/global.stageSettings.height;
+	dmapsRep[currentDmapID].filter.scale.y=dmapsRep[currentDmapID].filter.scale.x;
 };
 
 
@@ -465,7 +462,6 @@ global.domRefs.$stageContainer.addEventListener('mouseup', mouseUpListener);
 global.domRefs.$stageContainer.addEventListener('touchend', mouseUpListener);
 
 global.externalResizeListener = resizeListener;
-resizeListener();
 
 setScene();
 

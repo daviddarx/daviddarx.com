@@ -1,5 +1,11 @@
 /*
-	
+
+- check problem scale filter -> comparer avec daviddarx.cim
+		- check screenshot à la racine. 
+		- check sur anime 01 aussi. 
+				- surement le ratio. 
+		- check sur ecrans pas retina? 
+
 - faire backup de version actuellement sur daviddarx pour comparer perfs
 -- check sur daviddar.com si le landing sur index.html fonctionne. 
 -- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify

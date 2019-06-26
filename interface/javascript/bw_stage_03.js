@@ -5,6 +5,7 @@
 
 - faire impression 2 ou 3 plexis glass, avec differentes fonts et wireframes. que noir? 
 
+- rebaisser nombre de lettre? check les perfs au bout de 2 minutes
 
 
 - finetunings: 		
