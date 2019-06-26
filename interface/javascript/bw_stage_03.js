@@ -1,43 +1,20 @@
 
 /*
-- check general.js todo
-
-
 - faire impression 2 ou 3 plexis glass, avec differentes fonts et wireframes. que noir? 
-
-- rebaisser nombre de lettre? check les perfs au bout de 2 minutes
-
-
-- finetunings: 		
-- augementer lettersRotationXRatioToCameraPosY dans settings? ca a avoir avec la diffence de position y de la camera pour suivre ll'inclinaison x des lettres
-
-- check performances sur autres computers. 
-
-- optimiser: 
--- resolution des lettres, taille des lettres, nombre max de lettres et meshs, usw. 
--- The first best optimisation to do is to set every object with the property matrixAutoUpdate to false and manually call the updateMatrix() method when needed. The second is to merge and draw all the elements which are using the same material with THREE.BuffergeometryUtils. All the scenes on this portfolio are arounds 13 draws 120 calls / render.
--- Check le MatrixAutoUpdate des Objets! 
--- Check le truc avec Buffer geomatries
-
-- fine tuning durée text auto 
-- augementer le textAutoLaunchTimeoutFirstCallDuration
-
-- finir mapping text
--- retirer le let text
-
-
-- fonts
--- faire choix defintive, et reoslutions/size definitives
--- ajouter la new york de apple? Dans fonts a la racine
--- remttre fonts random à la fin, car apparemment leur taille diffrentes influence sur la place que prends le tout. 
--- dynamiser la taille, en plus des segments? 
 
 
 
 - retina pour mobile? 
+- finir mapping text
+-- retirer le let text
+
+- optimiser: 
+-- reaugmenter nombre de lettres? 
+-- reaugmenter resolution des lettres
+
+
 
 - jshint
-
 - envoyer à codrops et newsletter animation? 
 
 */
@@ -57,25 +34,41 @@ const settings={
 	fontsDirectory:'s3_fonts/',
 	fontsURLs:[
 		{
-			font:'google/Playfair_Display_Bold.json',
-			segments:4
-		},/* 
-		{
-			font:'google/Noto_Serif_Regular.json',
+			font:'Playfair_Display_Bold.json',
 			segments:2
-		},
+		}, 
 		{
-			font:'google/Aclonica_Regular.json',
+			font:'Noto_Serif_Regular.json',
 			segments:2
 		},
 		{
 			font:'Regular-Web.json',
 			segments:2
-		}, 
+		},
 		{
 			font:'BluuNext-Bold.json',
-			segments:5
-		}*/
+			segments:4
+		}, 
+		{
+			font:'Faune_Text_Regular.json',
+			segments:4
+		}, 
+		{
+			font:'Happy_Times_IKOB_Regular.json',
+			segments:4
+		}, 
+		{
+			font:'Wremena_Regular.json',
+			segments:4
+		},
+		{
+			font:'droid_serif_bold.typeface.json',
+			segments:1
+		}, 
+		{
+			font:'artergraa.json',
+			segments:4
+		}
 	],
 	audioURL:'s3_sound/baudelaire_enivrez-vous_serge_reggiani_trimmed.m4a', 
 	envMapImagesPath:'s3_cube_texture/', 
@@ -171,8 +164,8 @@ const settings={
 		poemAudioStartTime:0
 	}, 
 	
-	maxLetterNumber:140, //60
-	maxSpiraleBoxesNumber:100, //60
+	maxLetterNumber:100, 
+	maxSpiraleBoxesNumber:100, 
 	destroyMeshesIntervalDuration:20000,
 	
 	lettersInitRotationMax:90, 
@@ -188,7 +181,7 @@ const settings={
 	lettersRotationXNoiseIncrement:0.1, 
 	lettersRotationXNoiseMaxAngle:90, 
 	lettersRotationXNoiseMaxAngleAudio:0.0001, 
-	lettersRotationXRatioToCameraPosY:200, //50, //200 pour suivre inclinaison des lettres
+	lettersRotationXRatioToCameraPosY:200, 
 	
 	letterSpaceDistanceRatioToTextSize:0.6, 
 	letterApostrophePosYRatioToPreviousHeight:0.75, 
@@ -250,8 +243,8 @@ const settings={
 	cameraCenteredNoiseIncrement:0.03, 
 	cameraCenteredNoiseMaxPosYDifference:1000, 
 	
-	switchCameraTimeoutDuration:7000, //12000, a remettre et finetuner
-	switchCameraTimeoutDurationAddedRandom:3000, //8000, 
+	switchCameraTimeoutDuration:7000, 
+	switchCameraTimeoutDurationAddedRandom:3000, 
 	switchCameraDuration:2000, 
 	switchCameraDurationAddedRandom:3000, 
 	
@@ -262,11 +255,11 @@ const settingsThree = {
 	aspectRatio:1, 
 	fieldOfView:60, 
 	nearPlane:1, 
-	farPlane:100000, 
+	farPlane:10000, 
 	cameraPosX:0, 
 	cameraPosY:200,
 	cameraPosZ:800, 
-	rendererBGColor:0x000000, //0x333333,
+	rendererBGColor:0x000000, 
 	rendererBGColorAlt:0xffffff, 
 };
 
@@ -369,6 +362,8 @@ const ThreeJS = function() {
 	this.spiraleStartRadiusCurrent = settings.spiraleStartRadius;
 	this.cameraRadiusAddedMinCurrent = settings.cameraRadiusAddedMin;
 	this.cameraAutoMoveLookAtEaseFactorCurrent = settings.cameraAutoMoveLookAtEaseFactor;
+
+	this.materialTween = undefined;
 	
 	this.init = () => {
 		this.mesh=new THREE.Object3D();
@@ -420,6 +415,8 @@ const ThreeJS = function() {
 			this.particlesMeshIndic.position.set(Math.random()*settings.particlesPositionRange*2-settings.particlesPositionRange, Math.random()*settings.particlesPositionRange*2-settings.particlesPositionRange, Math.random()*settings.particlesPositionRange*2-settings.particlesPositionRange);
 			this.particlesMeshIndic.rotation.set(Math.random()*Math.PI*2, Math.random()*Math.PI*2, Math.random()*Math.PI*2);
 			this.particlesContainer.add(this.particlesMeshIndic);
+			this.particlesMeshIndic.matrixAutoUpdate = false;
+			this.particlesMeshIndic.updateMatrix();
 		}
 	}	
 	
@@ -503,7 +500,6 @@ const ThreeJS = function() {
 			}
 			
 			mesh.position.set(currentLetterPos.x, currentLetterPos.y+this.specialLetterPosYCorrection, currentLetterPos.z);
-			
 			scene.add(mesh);
 			this.letterMeshInstancesRep.push(mesh);
 			
@@ -517,7 +513,9 @@ const ThreeJS = function() {
 				x:mesh.currentRotationX, 
 				y:Math.atan2(currentLetterPos.x, currentLetterPos.z), 
 				z:global.radians(Math.random()*settings.lettersEndRotationMax), 
-				ease:settings.lettersAnimationInRotationEase
+				ease:settings.lettersAnimationInRotationEase, 
+				onComplete:this.lettersAnimationInCompleteListener, 
+				onCompleteParams:[mesh]
 			})
 		}else{
 			if(this.previousLetterMesh!=undefined){
@@ -534,6 +532,10 @@ const ThreeJS = function() {
 		this.addSpiralBox();
 	}
 	
+	this.lettersAnimationInCompleteListener = (mesh) => {
+		mesh.matrixAutoUpdate=false;
+	}
+	
 	this.removeLetter = (letter) =>{
 		scene.remove(letter);
 		this.meshesToDestroyRep.push(letter);
@@ -548,6 +550,8 @@ const ThreeJS = function() {
 		plane.position.set(this.spiraleCurrentRadius*this.spiraleBoxesCurrentRadiusRatio * Math.cos(this.spiralCurrentAngle), currentLetterPos.y, this.spiraleCurrentRadius*this.spiraleBoxesCurrentRadiusRatio * Math.sin(this.spiralCurrentAngle));
 		plane.rotation.set(0, Math.atan2( plane.position.x, plane.position.z), 0);
 		plane.scale.z = 0.01 + Math.abs(this.spiraleBoxesCurrentRadiusRatioNoise);
+		plane.matrixAutoUpdate = false;
+		plane.updateMatrix();
 		scene.add(plane);
 		
 		this.spiraleBoxesRep.push(plane);
@@ -556,7 +560,7 @@ const ThreeJS = function() {
 			this.removeCustomMeshTriangle(this.spiraleBoxesRep[0]);
 			this.spiraleBoxesRep[0]=undefined;
 			this.spiraleBoxesRep.shift();
-		}
+		}		
 	}
 	
 	this.removeCustomMeshTriangle = (mesh) => {
@@ -662,11 +666,18 @@ const ThreeJS = function() {
 			}, settings.switchMaterialWireframeTimeoutDuration+Math.random()*settings.switchMaterialWireframeTimeoutDurationAddedRandom);
 		}
 	}
+
+	this.setMaterialForAudioPlaying = () => {
+		if(this.materialTween!=undefined){ this.materialTween.kill(); }
+		this.materials.commonMaterial.isWireframe=true;
+		this.setMaterialWireframe();
+	}
 	
 	this.launchMaterialWireframeSwitch = () => {
 		clearTimeout(this.switchMaterialWireframeTimeout);
+		if(this.materialTween!=undefined){ this.materialTween.kill(); }
 		if(isAudioPlaying==false){
-			TweenMax.to(this.switchMaterialWireframeTweenObject, settings.switchMaterialWireframeTransitionDuration/1000, { 
+			this.materialTween = TweenMax.to(this.switchMaterialWireframeTweenObject, settings.switchMaterialWireframeTransitionDuration/1000, { 
 				value:1,  
 				onUpdate:()=>{
 					this.randomizeMaterialWireframe();
@@ -791,9 +802,7 @@ const audioButtonMouseDownListener = (e) => {
 	}
 	
 	if(isAudioPlaying==false){
-		if(threeJSObject.materials.commonMaterial.isWireframe==true){
-			threeJSObject.launchMaterialWireframeSwitch();
-		}
+		threeJSObject.setMaterialForAudioPlaying();
 		threeJSObject.killAutoText(false);
 		$audioElement.currentTime = settings.textsSettings.poemAudioStartTime;
 		$audioElement.play();
@@ -900,7 +909,8 @@ const setScene = () => {
 	
 	renderer = new THREE.WebGLRenderer({
 		alpha:false, 
-		antialias:true
+		antialias:true, 
+		powerPreference:"high-performance"
 	});
 	renderer.setClearColor( settingsThree.rendererBGColor, 1);
 	renderer.isAltClearColor=false;

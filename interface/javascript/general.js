@@ -1,15 +1,4 @@
-/*
- 
-- faire backup de version actuellement sur daviddarx pour comparer perfs
--- check sur daviddar.com si le landing sur index.html fonctionne. 
--- check dist sur daviddarx si probleme de load listener des images pour scene1, commne sur netlify
-
-
-- mettre le tout sur netlify? check probleme la bas des loading listener
--- changer DNS -> rediriger daviddar.com (a-record)
--- ensuite faire branch developpement. 
-
-*/
+/**/
 
 import './add_stats.js';
 
