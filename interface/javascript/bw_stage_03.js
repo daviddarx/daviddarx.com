@@ -1,12 +1,10 @@
 
 /*
 - faire impression 2 ou 3 plexis glass, avec differentes fonts et wireframes. que noir? 
-
+- envoyer à codrops et newsletter animation? 
 
 
 - retina pour mobile? 
-- finir mapping text
--- retirer le let text
 
 - optimiser: 
 -- reaugmenter nombre de lettres? 
@@ -15,7 +13,6 @@
 
 
 - jshint
-- envoyer à codrops et newsletter animation? 
 
 */
 
@@ -55,10 +52,6 @@ const settings={
 		}, 
 		{
 			font:'Happy_Times_IKOB_Regular.json',
-			segments:4
-		}, 
-		{
-			font:'Wremena_Regular.json',
 			segments:4
 		},
 		{
@@ -127,7 +120,7 @@ const settings={
 			["trêve. ", 13.7],
 			["Mais ", 14.8],
 			["de ", 15],
-			["quoi ? ", 15.2],
+			["quoi ? ", 15.2], 
 			["De ", 16.8],
 			["vin, ", 17.0],
 			["de ", 18.3],
@@ -148,7 +141,7 @@ const settings={
 			["palais, ", 25.5],
 			["sur ", 25.7],
 			["l'herbe ", 25.9],
-			["verte ", 26.5],
+			["verte ", 26.3],
 			["d'un ", 26.7],
 			["fossé, ", 26.8],
 			["dans ", 27.7],
@@ -158,8 +151,95 @@ const settings={
 			["de ", 28.9],
 			["votre ", 29.1],
 			["chambre ", 29.2],
-			
-			["la ", 1000],
+			["vous ", 29.7],
+			["vous ", 30],
+			["réveillez, ", 30.2],
+			["l'ivresse ", 31.6],
+			["déjà ", 32.4],
+			["diminuée ", 32.6],
+			["ou ", 33.3],
+			["disparue, ", 33.4],
+			["demandez ", 35.5],
+			["au ", 35.8],
+			["vent, ", 36],
+			["à ", 36.1],
+			["la ", 36.2],
+			["vague, ", 36.4],
+			["à ", 36.7],
+			["l'étoile, ", 36.9],
+			["à ", 37.2],
+			["l'oiseau, ", 37.3],
+			["à ", 37.5],
+			["l'horloge ", 37.6],
+			["à ", 39.2],
+			["tout ", 39.25],
+			["ce ", 39.5],
+			["qui ", 39.4],
+			["rit, ", 39.5],
+			["à ", 39.8],
+			["tout ", 39.9],
+			["ce ", 40],
+			["qui ", 40.1],
+			["gémit, ", 40.2],
+			["à ", 40.4],
+			["tout ", 40.5],
+			["ce ", 40.6],
+			["qui ", 40.65],
+			["fuit, ", 40.7],
+			["à ", 40.9],
+			["tout ", 41],
+			["ce ", 41.35],
+			["qui ", 41.4],
+			["chante, ", 41.5],
+			["à ", 41.9],
+			["tout ", 42],
+			["ce ", 42.15],
+			["qui ", 42.2],
+			["parle, ", 42.3],
+			["demandez ", 43.5],
+			["quelle ", 43.8],
+			["heure ", 43.9],
+			["il ", 44],
+			["est. ", 44.1],
+			["et ", 45.1],
+			["le ", 45.2],
+			["vent, ", 45.4],
+			["la ", 45.7],
+			["vague, ", 45.75],
+			["l'oiseau, ", 46],
+			["l'horloge, ", 46.4],
+			["vous ", 46.8],
+			["répondront, ", 46.9],
+			["il ", 47.6],
+			["est ", 47.65],
+			["l'heure ", 47.8],
+			["de ", 48],
+			["s'enivrer; ", 48.1],
+			["pour ", 50],
+			["n'être ", 50.1],
+			["pas ", 50.25],
+			["les ", 50.3],
+			["esclaves ", 50.4],
+			["martyrisés ", 51.1],
+			["du ", 51.65],
+			["temps, ", 51.75],
+			["enivrez-", 52.5],
+			["vous, ", 52.7],
+			["enivrez-", 53.6],
+			["vous ", 53.8],
+			["sans ", 54.25],
+			["trêve, ", 54.5],
+			["de ", 55.5],
+			["vin, ", 55.6],
+			["de ", 56.9],
+			["poésie, ", 57],
+			["d'amour ", 58.4],
+			["ou ", 60],
+			["de ", 60.1],
+			["vertue, ", 60.2],
+			["à ", 61.8],
+			["votre ", 61.9],
+			["guise. ", 62.1]
 		], 
 		poemAudioStartTime:0
 	}, 
@@ -248,7 +328,7 @@ const settings={
 	switchCameraDuration:2000, 
 	switchCameraDurationAddedRandom:3000, 
 	
-	audioElementTimeUpIntervalDuration:50
+	audioElementTimeUpIntervalDuration:25, //50 remettre 50
 };
 
 const settingsThree = {
@@ -267,12 +347,12 @@ const currentLetterPos = {
 	x:0, 
 	y:0, 
 	z:settings.spiraleStartRadius
-}
+};
 const currentLetterPosTargetForCamera = {
 	x:0, 
 	y:0, 
 	z:0
-}
+};
 
 let scene;
 let camera;
@@ -281,7 +361,6 @@ let threeJSObject;
 let cameraControlerObject;
 let $audioButton;
 let $audioElement;
-let test;
 
 let audioElementTimeUpdateInterval;
 
@@ -418,7 +497,7 @@ const ThreeJS = function() {
 			this.particlesMeshIndic.matrixAutoUpdate = false;
 			this.particlesMeshIndic.updateMatrix();
 		}
-	}	
+	};	
 	
 	this.fontLoaderCompleteListener = (font) => {
 		settings.lettersGeomSettings.font=font;
@@ -426,16 +505,16 @@ const ThreeJS = function() {
 		for(let i=0; i<settings.textsSettings.availableCaracters.length-1; i++){
 			this.createLetterGeom(settings.textsSettings.availableCaracters[i]);
 		}			 
-	}
+	};
 	
 	this.calculateSpiraleRadiusForCamera = () => {
 		this.spiraleCurrentRadiusForCamera = this.spiraleCurrentRadius + (1- Math.abs(this.lettersCurrentRotationX / global.radians(this.lettersRotationXNoiseMaxAngleCurrent)) )  * this.cameraRadiusAddedMinCurrent;
 		cameraControlerObject.cameraTargetPos.y =  currentLetterPos.y - this.lettersCurrentRotationX*settings.lettersRotationXRatioToCameraPosY;
-	}
+	};
 	this.calculateSpiraleRadiusForCameraAudio = () => {
 		this.spiraleCurrentRadiusForCamera = this.spiraleCurrentRadius + this.cameraRadiusAddedMinCurrent;
 		cameraControlerObject.cameraTargetPos.y =  currentLetterPos.y;
-	}
+	};
 	this.calculateSpiraleRadiusForCameraCurrent = this.calculateSpiraleRadiusForCamera;
 	
 	this.updateCurrentLetterPositionOnSpirale = (distance) => {
@@ -449,7 +528,7 @@ const ThreeJS = function() {
 			cameraControlerObject.cameraTargetPos.x = this.spiraleCurrentRadiusForCamera * Math.cos(this.spiralCurrentAngle);
 			cameraControlerObject.cameraTargetPos.z = this.spiraleCurrentRadiusForCamera * Math.sin(this.spiralCurrentAngle);		
 		}
-	}
+	};
 	
 	this.createLetterGeom = (letterString) => {
 		let geometry = new THREE.TextGeometry(letterString, settings.lettersGeomSettings);
@@ -458,7 +537,7 @@ const ThreeJS = function() {
 		let mesh = new THREE.Mesh(geometry, this.materials.commonMaterial);
 		this.letterMeshesRep[letterString.charCodeAt(0)]=mesh;
 		return mesh;
-	}
+	};
 	
 	this.addLetter = (keyCode) => {
 		this.previousLetterMesh=this.letterMeshInstancesRep[this.letterMeshInstancesRep.length-1];
@@ -516,7 +595,7 @@ const ThreeJS = function() {
 				ease:settings.lettersAnimationInRotationEase, 
 				onComplete:this.lettersAnimationInCompleteListener, 
 				onCompleteParams:[mesh]
-			})
+			});
 		}else{
 			if(this.previousLetterMesh!=undefined){
 				this.updateCurrentLetterPositionOnSpirale(settings.lettersGeomSettings.size * settings.letterSpaceDistanceRatioToTextSize * this.previousLetterMesh.currentScale);
@@ -530,16 +609,16 @@ const ThreeJS = function() {
 		}
 		
 		this.addSpiralBox();
-	}
+	};
 	
 	this.lettersAnimationInCompleteListener = (mesh) => {
 		mesh.matrixAutoUpdate=false;
-	}
+	};
 	
 	this.removeLetter = (letter) =>{
 		scene.remove(letter);
 		this.meshesToDestroyRep.push(letter);
-	}
+	};
 	
 	this.addSpiralBox = () => {	
 		this.spiraleBoxesCurrentRadiusRatioNoiseIndic+=0.1;
@@ -561,12 +640,12 @@ const ThreeJS = function() {
 			this.spiraleBoxesRep[0]=undefined;
 			this.spiraleBoxesRep.shift();
 		}		
-	}
+	};
 	
 	this.removeCustomMeshTriangle = (mesh) => {
 		scene.remove(mesh);
 		this.meshesToDestroyRep.push(mesh);
-	}
+	};
 	
 	this.destroyMeshesIntervalListener = () => {
 		
@@ -578,21 +657,21 @@ const ThreeJS = function() {
 		
 		renderer.renderLists.dispose();
 		this.meshesToDestroyRep=[];
-	}
+	};
 	
 	this.keyPress = (keyCode) => {
 		if(this.letterMeshesRep[keyCode]!=undefined || keyCode==' '.charCodeAt(0)){
 			this.killAutoText(true);
 			this.addLetter(keyCode);
 		}
-	}
+	};
 	
 	this.addAudioWord = (word) => {
 		this.currentAudioWordLettersArray=word.toLowerCase().split('');
 		for(let i=0, il=this.currentAudioWordLettersArray.length; i<il; i++) {
 			this.addLetter(this.currentAudioWordLettersArray[i].charCodeAt(0));
 		}
-	}
+	};
 	
 	this.launchAutoText = () => {
 		this.isAutoText=true;
@@ -602,7 +681,7 @@ const ThreeJS = function() {
 		this.textAutoLaunchTimeout=setTimeout(() =>{
 			this.launchAutoText();
 		}, settings.textAutoLaunchTimeoutDurationMin + Math.random()*settings.textAutoLaunchTimeoutDurationRandomAdded);
-	}
+	};
 	
 	this.killAutoText = (relaunchTimeout) => {
 		if(cameraControlerObject.isCameraFollowingLetter==false){
@@ -616,11 +695,11 @@ const ThreeJS = function() {
 				this.launchAutoText();
 			}, settings.textAutoLaunchAfterResetTimeoutDuration);
 		}
-	}
+	};
 	
 	this.randomizeStageBackground = () => {
 		renderer.setClearColor( (Math.random() < 0.5) ? settingsThree.rendererBGColorAlt : settingsThree.rendererBGColor, 1);
-	}
+	};
 	
 	this.setStageBackground = () => {
 		if(renderer.isAltClearColor==false){
@@ -632,7 +711,7 @@ const ThreeJS = function() {
 			renderer.isAltClearColor=false;
 			$audioButton.querySelector('a').classList.remove('negative');
 		}
-	}
+	};
 	
 	this.switchStageBackground = () => {
 		TweenMax.to(this.switchstageBackgroundTweenObject, settings.switchStageBackgroundTransitionDuration/1000, { 
@@ -645,11 +724,11 @@ const ThreeJS = function() {
 			},
 			ease:settings.lettersAnimationInScaleEase
 		});
-	}
+	};
 	
 	this.randomizeMaterialWireframe = () => {
 		this.materials.commonMaterial.wireframe=Math.random() < 0.5;
-	}
+	};
 	
 	this.setMaterialWireframe = () => {
 		if(this.materials.commonMaterial.isWireframe==false){
@@ -665,13 +744,13 @@ const ThreeJS = function() {
 				this.launchMaterialWireframeSwitch();
 			}, settings.switchMaterialWireframeTimeoutDuration+Math.random()*settings.switchMaterialWireframeTimeoutDurationAddedRandom);
 		}
-	}
+	};
 
 	this.setMaterialForAudioPlaying = () => {
 		if(this.materialTween!=undefined){ this.materialTween.kill(); }
 		this.materials.commonMaterial.isWireframe=true;
 		this.setMaterialWireframe();
-	}
+	};
 	
 	this.launchMaterialWireframeSwitch = () => {
 		clearTimeout(this.switchMaterialWireframeTimeout);
@@ -692,7 +771,7 @@ const ThreeJS = function() {
 				this.launchMaterialWireframeSwitch();
 			}, settings.switchMaterialWireframeTimeoutDuration+Math.random()*settings.switchMaterialWireframeTimeoutDurationAddedRandom);
 		}
-	}
+	};
 	
 	this.render = () => {
 		currentLetterPosTargetForCamera.x += ( currentLetterPos.x - currentLetterPosTargetForCamera.x ) * this.cameraAutoMoveLookAtEaseFactorCurrent;
@@ -700,8 +779,8 @@ const ThreeJS = function() {
 		currentLetterPosTargetForCamera.z += ( currentLetterPos.z - currentLetterPosTargetForCamera.z ) * this.cameraAutoMoveLookAtEaseFactorCurrent;	
 		
 		this.particlesContainer.position.y = currentLetterPosTargetForCamera.y;
-	}
-}
+	};
+};
 
 
 
@@ -715,7 +794,7 @@ const CameraControler = function() {
 		x: 0, 
 		y: 0, 
 		z: 0
-	}
+	};
 	this.cameraCenteredTargetPosY = 0;
 	this.cameraCenteredPerlinNoise = undefined;
 	this.cameraCenteredPerlinNoiseAskFor = 0; 
@@ -730,7 +809,7 @@ const CameraControler = function() {
 		this.switchCameraTimeout = setTimeout(() =>{
 			this.switchCamera();
 		}, settings.switchCameraTimeoutDuration+Math.random()*settings.switchCameraTimeoutDurationAddedRandom);
-	}
+	};
 	
 	this.updateCameraToCurrentLetter = () => {
 		if(this.isCameraFollowingLetter == true){
@@ -744,7 +823,7 @@ const CameraControler = function() {
 			camera.position.y += (this.cameraCenteredTargetPosY - camera.position.y ) * this.cameraAutoMoveEaseFactorCurrent;
 			camera.rotation.y += settings.cameraCenteredRotationYIncrement;
 		}
-	}
+	};
 	
 	this.switchCamera = () => {
 		clearTimeout(this.switchCameraTimeout);
@@ -770,12 +849,12 @@ const CameraControler = function() {
 				this.switchCamera();
 			}, settings.switchCameraTimeoutDuration+Math.random()*settings.switchCameraTimeoutDurationAddedRandom);
 		}
-	}
+	};
 	
 	this.udpateOnRender = () => {
 		this.updateCameraToCurrentLetter();
-	}
-}
+	};
+};
 
 
 
@@ -846,9 +925,9 @@ const audioButtonMouseDownListener = (e) => {
 
 const audioElementTimeUpdateListener = () => {
 	if($audioElement.currentTime>=settings.textsSettings.poemAudioText[currentAudioWordID][1]){	
-		//test.innerHTML+=settings.textsSettings.poemAudioText[currentAudioWordID][0];
 		
 		threeJSObject.addAudioWord(settings.textsSettings.poemAudioText[currentAudioWordID][0]);
+		
 		currentAudioWordID+=1;
 		
 		if(currentAudioWordID>settings.textsSettings.poemAudioText.length-1){
@@ -856,11 +935,12 @@ const audioElementTimeUpdateListener = () => {
 			clearInterval(audioElementTimeUpdateInterval);
 		}
 	}
-}
+};
 
 const audioElementEndListener = () => {
 	audioButtonMouseDownListener();
-}
+	threeJSObject.switchStageBackground();
+};
 
 const renderStage = () => {
 	threeJSObject.render();
@@ -892,13 +972,7 @@ const setScene = () => {
 	$audioButton.addEventListener('click', audioButtonMouseDownListener);
 	$audioButton.addEventListener('touchstart', audioButtonMouseDownListener);
 	global.domRefs.$stageContainer.appendChild($audioButton);
-	
-	
-	test=document.createElement('div');
-	test.setAttribute('id', 'test');
-	document.body.appendChild(test);
-	
-	
+		
 	settingsThree.aspectRatio =global.stageSettings.width /global.stageSettings.height;
 	
 	scene = new THREE.Scene();
