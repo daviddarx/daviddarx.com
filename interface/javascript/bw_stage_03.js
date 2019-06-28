@@ -1,20 +1,4 @@
 
-/*
-- faire impression 2 ou 3 plexis glass, avec differentes fonts et wireframes. que noir? 
-- envoyer à codrops et newsletter animation? 
-
-
-- retina pour mobile? 
-
-- optimiser: 
--- reaugmenter nombre de lettres? 
--- reaugmenter resolution des lettres
-
-
-
-- jshint
-
-*/
 
 import { TweenMax } from 'gsap';
 import * as THREE from 'three'; 
@@ -25,42 +9,42 @@ const global = new Global();
 global.init();
 
 
-const devicePixelRatioCustom = (window.devicePixelRatio!=1 && global.windowSize.width<=1440) ? window.devicePixelRatio : 1; 
+const devicePixelRatioCustom = (window.devicePixelRatio!=1 && global.windowSize.width<=1024) ? window.devicePixelRatio : 1; 
 
 const settings={
 	fontsDirectory:'s3_fonts/',
 	fontsURLs:[
 		{
 			font:'Playfair_Display_Bold.json',
-			segments:2
+			segments:4
 		}, 
 		{
 			font:'Noto_Serif_Regular.json',
-			segments:2
-		},
+			segments:3
+		},	
 		{
 			font:'Regular-Web.json',
-			segments:2
+			segments:3
 		},
 		{
 			font:'BluuNext-Bold.json',
-			segments:4
+			segments:5
 		}, 
 		{
 			font:'Faune_Text_Regular.json',
-			segments:4
+			segments:5
 		}, 
 		{
 			font:'Happy_Times_IKOB_Regular.json',
-			segments:4
+			segments:5
 		},
 		{
 			font:'droid_serif_bold.typeface.json',
-			segments:1
+			segments:2
 		}, 
 		{
 			font:'artergraa.json',
-			segments:4
+			segments:5
 		}
 	],
 	audioURL:'s3_sound/baudelaire_enivrez-vous_serge_reggiani_trimmed.m4a', 
@@ -244,7 +228,7 @@ const settings={
 		poemAudioStartTime:0
 	}, 
 	
-	maxLetterNumber:100, 
+	maxLetterNumber:160, 
 	maxSpiraleBoxesNumber:100, 
 	destroyMeshesIntervalDuration:20000,
 	
