@@ -173,11 +173,11 @@ const Global = function(){
 			this.logoSettings.height = this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoHeight; 
 		}
 		
-		this.domRefs.$logo.style.left=this.logoSettings.posX+'px';
-		this.domRefs.$logo.style.top=this.logoSettings.posY+'px';
-		
 		this.domRefs.$logoImg[0].style.height=this.logoSettings.height+'px';
 		this.domRefs.$logoImg[1].style.height=this.logoSettings.height+'px';
+
+		this.domRefs.$logo.style.left=this.logoSettings.posX+'px';
+		this.domRefs.$logo.style.top=this.logoSettings.posY+'px';
 		
 		this.stageSettings.width=Math.round(this.stageSettings.width);
 		this.stageSettings.height=Math.round(this.stageSettings.height);

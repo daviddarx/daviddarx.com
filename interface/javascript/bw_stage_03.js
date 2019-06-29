@@ -1,4 +1,4 @@
-
+/**/
 
 import { TweenMax } from 'gsap';
 import * as THREE from 'three'; 
@@ -229,7 +229,7 @@ const settings={
 	}, 
 	
 	maxLetterNumber:160, 
-	maxSpiraleBoxesNumber:100, 
+	maxSpiraleBoxesNumber:160, 
 	destroyMeshesIntervalDuration:20000,
 	
 	lettersInitRotationMax:90, 

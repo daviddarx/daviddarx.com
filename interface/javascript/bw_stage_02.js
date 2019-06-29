@@ -1,3 +1,4 @@
+/**/
 
 import { TweenMax } from 'gsap';
 import * as PIXI from 'pixi.js';

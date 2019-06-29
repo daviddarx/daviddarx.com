@@ -110,6 +110,7 @@ body{
 	display:inline-block;
 	z-index:100;
 	opacity:0;
+	left:-1000px;
 	transition: opacity ease-out $loadedAnimationDuration;
 	
 	img{

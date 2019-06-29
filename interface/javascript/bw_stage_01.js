@@ -1,3 +1,5 @@
+/**/
+
 import { TweenMax } from 'gsap';
 import * as PIXI from 'pixi.js';
 import SimplexNoise from 'simplex-noise';
