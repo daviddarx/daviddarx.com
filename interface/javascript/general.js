@@ -1,6 +1,6 @@
 /**/
 
-import './add_stats.js';
+//import './add_stats.js';
 
 const globalSettings = {
 	urlBase : 'stage-', 
