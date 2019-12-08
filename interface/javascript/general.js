@@ -1,4 +1,7 @@
-/**/
+/*
+	- mettre la navigation en bas à gauche, sous le logo, verticalement. 
+	- debug s3 quand on lance le texte avec son et qu'on tape qqch, ensuite du texte vient tout le temps
+*/
 
 //import './add_stats.js';
 
