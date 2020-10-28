@@ -6,7 +6,6 @@
   "scripts": {
     "start": "parcel ./pages/*.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf .cache/ && rm -rf dist/",
     "build": "parcel build ./pages/*.html"
   },
   "repository": {
@@ -22,7 +21,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "parcel-bundler": "^1.12.4",
+    "parcel-bundler": "^1.12.3",
     "posthtml-modules": "^0.4.2",
     "sass": "^1.21.0"
   },
@@ -35,15 +34,7 @@
     "posthtml-include": "^1.2.0",
     "simplex-noise": "^2.4.0",
     "stats.js": "^0.17.0",
-    "three": "^0.105.2", 
-    "node-forge": ">=0.10.0",
-    "dot-prop": ">=4.2.1",
-    "elliptic": ">=6.5.3",
-    "lodash": ">=4.17.19",
-    "minimist": ">=0.2.1",
-    "acorn": ">=6.4.1",
-    "kind-of": ">=6.0.3",
-    "serialize-to-js": ">=3.0.1"
+    "three": "^0.105.2"
   },
   "staticFiles": {
     "staticPath": "images"
