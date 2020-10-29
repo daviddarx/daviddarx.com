@@ -189,11 +189,13 @@ const Global = function(){
 		this.domRefs.$stageContainer.style.width=this.stageSettings.width+'px';
 		this.domRefs.$stageContainer.style.height=this.stageSettings.height+'px';
 		
-		this.domRefs.$pagination.style.right=(this.windowSize.width - this.stageSettings.posX - this.stageSettings.width)+'px';
+    this.domRefs.$pagination.style.width=this.logoSettings.height+'px';
+		this.domRefs.$pagination.style.left=this.logoSettings.posX+'px';
+    this.domRefs.$pagination.style.bottom=(this.stageSettings.posY - this.logoSettings.height * 0.5 +1)+'px';
 		
 		this.domRefs.$paginationItems.forEach((el) => {
-			el.style.width=(this.windowSize.width - this.stageSettings.posX - this.stageSettings.width)+'px';
-			el.style.height=(this.windowSize.width - this.stageSettings.posX - this.stageSettings.width)+'px';
+			el.style.width=this.logoSettings.height+'px';
+			el.style.height=this.logoSettings.height+'px';
 		});
 
 		if(this.externalResizeListener != undefined){
