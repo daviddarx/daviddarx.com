@@ -11,11 +11,37 @@ $logoHoverAnimationEase:cubic-bezier(0.165, 0.840, 0.440, 1.000);
 $logoAnimationInDuration:0.25s;
 
 //////////////////////////////////////////////////////////////////
-//Fonts
+//Mixins
 //////////////////////////////////////////////////////////////////
 
+@mixin twerk-anime {
+  --s-twerk: 0.5px;
 
+  animation: twerk 0.4s cubic-bezier(0.3, 0.7, 0, 1.5) both infinite;
+}
 
+@keyframes twerk {
+  10%,
+  90% {
+    transform: translate3d(calc(var(--s-twerk) * -1), calc(var(--s-twerk) * 1), 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(calc(var(--s-twerk) * -1), calc(var(--s-twerk) * 1), 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(calc(var(--s-twerk) * 1), calc(var(--s-twerk) * -1), 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(calc(var(--s-twerk) * 1), calc(var(--s-twerk) * 1), 0);
+  }
+}
 
 
 
@@ -99,34 +125,85 @@ body{
 		}
 	}
 	&.loadedStart{
-		.stage__logo img:nth-of-type(1){
+		.stage__logo{
 			opacity:1;
 		}
 	}
 }
 
-.stage__logo{
-	position:absolute;
-	display:inline-block;
-	z-index:100;
-	opacity:0;
-	left:-1000px;
-	transition: opacity ease-out $loadedAnimationDuration;
-	
-	img{
-		position:absolute;
-		display:block;
-		height:auto;
-		opacity:0;
-		//@include transition(opacity $loadedAnimationDuration $loadedAnimationEase);
-		transform:rotate(-90deg) translateX(-99%) translateY(-10%);
-		transform-origin:0 0;
+.logo {
+  --s-rotate: 0deg; // -45deg;
+  --s-translateX: 0%; // -10% with rotation
+  --s-translateY: -3%; // -10% with rotation
+  --e-inout: cubic-bezier(0.77, 0, 0.175, 1); // quart
+
+  $root: #{&};
+
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+  top: var(--s-gutter);
+  left: var(--s-gutter);
+  transform: translate(var(--s-translateX), var(--s-translateY));
+
+  &__container {
+
+	display: block;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 170%;
+      left: -38%;
+      height: 150%;
+      top: -25%;
+      background-color: black;
+      z-index: -1;
+      transform: scaleY(0);
+      transform-origin: top left;
+      transition: transform var(--e-inout) 0.25s;
+
+		#{$root}:hover & {
+			transform: scaleY(1);
+			transform-origin: bottom left;
+		}
+    }
+
+    &::after {
+      z-index: -2;
+      background-color: transparent;
+      transform: none;
+    }
+
+	&:hover {
+		@include twerk-anime();
 	}
-	
-	img:nth-of-type(2){
-		opacity:0;
-		transition: opacity $logoHoverAnimationDuration $logoHoverAnimationEase;
+  }
+
+  &__el {
+    display: block;
+    height: var(--s-logo);
+    width: auto;
+    fill: var(--c-text);
+    transform: rotate(var(--s-rotate));
+    transform-origin: center center;
+    transition: fill ease-out 0.2s, transform var(--e-inout) 0.35s;
+
+	#{$root}:hover & {
+		fill: white;
+		transform: rotate(0deg);
 	}
+  }
+
+  &__p1 {
+    opacity: 0;
+    transition: opacity ease-out 0.25s;
+
+    #{$root}:hover & {
+      opacity: 1;
+    }
+  }
 }
 
 .stage__container{

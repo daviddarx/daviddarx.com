@@ -79,7 +79,7 @@ const Global = function(){
 		this.domRefs.$logo = document.querySelector('.stage__logo');
 		this.domRefs.$logo.addEventListener('click', (e) => this.logoClickListener(e));
 		this.domRefs.$logo.addEventListener('touchstart', (e) => this.logoClickListener(e));
-		this.domRefs.$logoImg = Array.prototype.slice.call(this.domRefs.$logo.querySelectorAll('img'));
+		this.domRefs.$logoImg = this.domRefs.$logo.querySelector('svg');
 		this.domRefs.$logoLink = this.domRefs.$logo.getElementsByTagName('a');
 		
 		this.domRefs.$stage = document.querySelector('.stage');
@@ -176,8 +176,7 @@ const Global = function(){
 			this.logoSettings.height = this.windowSize.width * globalSettings.breakPointsDefinitions[0].logoHeight; 
 		}
 		
-		this.domRefs.$logoImg[0].style.height=this.logoSettings.height+'px';
-		this.domRefs.$logoImg[1].style.height=this.logoSettings.height+'px';
+		this.domRefs.$logoImg.style.height=this.logoSettings.height+'px';
 
 		this.domRefs.$logo.style.left=this.logoSettings.posX+'px';
 		this.domRefs.$logo.style.top=this.logoSettings.posY+'px';
