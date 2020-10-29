@@ -270,6 +270,13 @@ body{
 			transform: scaleY(1);
 		}
 	}
+
+	&.clicked {
+		&:after{
+			transform: scaleY(0);
+			transition-delay: 0.65s;
+		}
+	}
 }
 
 .animation-03{

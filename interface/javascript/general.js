@@ -114,6 +114,7 @@ const Global = function(){
 	};
 	
 	this.paginationClickListener = (e) => {
+    e.target.classList.add("clicked");
 		this.domRefs.$stage.classList.remove('loaded');
 		
 		setTimeout(() => {
