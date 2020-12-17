@@ -14,4 +14,4 @@ This site is generated statically using [parcel.js](https://parceljs.org/cli.htm
 
 ## About
 
-I am a visual designer with a certain love for code. I use this repository to play around with my website and keep in touch with a modern JS stack. And also because @meodai foces me to <3.
+I am a visual designer with a certain love for code. I use this repository to play around with my website and keep in touch with a modern JS stack. And also because @meodai forces me to <3.
