@@ -952,7 +952,7 @@ const setScene = () => {
 	
 	$audioButton = document.createElement('div');
 	$audioButton.setAttribute('class', 'audioButton');
-	$audioButton.innerHTML+="<a href='https://www.youtube.com/watch?v=ZpKb5I6kxbM' target='_blank'>Play audio: Serge Reggiani - Enivrez-vous - Poème de Baudelaire</a></div>";
+	$audioButton.innerHTML+="<a href='https://www.facebook.com/watch/?v=211972923353678' target='_blank'>Play audio: Serge Reggiani - Enivrez-vous - Poème de Baudelaire</a></div>";
 	$audioButton.addEventListener('click', audioButtonMouseDownListener);
 	$audioButton.addEventListener('touchstart', audioButtonMouseDownListener);
 	global.domRefs.$stageContainer.appendChild($audioButton);
