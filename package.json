@@ -35,7 +35,7 @@
     "posthtml-include": "^1.2.0",
     "simplex-noise": "^2.4.0",
     "stats.js": "^0.17.0",
-    "three": "0.105.2"
+    "three": "0.137.0"
   },
   "staticFiles": {
     "staticPath": "images"
